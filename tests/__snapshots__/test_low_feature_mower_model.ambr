@@ -1,0 +1,108 @@
+# serializer version: 1
+# name: test_mower_snapshot[battery]
+  dict({
+    'battery_percent': 50,
+  })
+# ---
+# name: test_mower_snapshot[calendar]
+  dict({
+    'events': list([
+      dict({
+        'end': FakeDatetime(2024, 5, 13, 0, 49, tzinfo=datetime.timezone.utc),
+        'rrule': 'FREQ=WEEKLY;BYDAY=MO',
+        'start': FakeDatetime(2024, 5, 13, 0, 0, tzinfo=datetime.timezone.utc),
+        'uid': '120_49_MO',
+        'work_area_id': None,
+      }),
+    ]),
+    'tasks': list([
+      dict({
+        'duration': 49,
+        'friday': False,
+        'monday': True,
+        'saturday': False,
+        'start': 120,
+        'sunday': False,
+        'thursday': False,
+        'tuesday': False,
+        'wednesday': False,
+        'work_area_id': None,
+      }),
+    ]),
+  })
+# ---
+# name: test_mower_snapshot[capabilities]
+  dict({
+    'headlights': False,
+    'position': False,
+    'stay_out_zones': False,
+    'work_areas': False,
+  })
+# ---
+# name: test_mower_snapshot[metadata]
+  dict({
+    'connected': True,
+    'status_dateteime': FakeDatetime(2023, 10, 18, 22, 58, 52, 683000, tzinfo=datetime.timezone.utc),
+  })
+# ---
+# name: test_mower_snapshot[mower]
+  dict({
+    'activity': 'PARKED_IN_CS',
+    'error_code': 0,
+    'error_datetime': None,
+    'error_datetime_naive': None,
+    'error_key': None,
+    'inactive_reason': 'NONE',
+    'is_error_confirmable': False,
+    'mode': 'MAIN_AREA',
+    'state': 'RESTRICTED',
+    'work_area_id': None,
+  })
+# ---
+# name: test_mower_snapshot[planner]
+  dict({
+    'next_start_datetime': FakeDatetime(2023, 6, 5, 17, 0, tzinfo=datetime.timezone.utc),
+    'next_start_datetime_naive': FakeDatetime(2023, 6, 5, 19, 0),
+    'override': dict({
+      'action': 'NOT_ACTIVE',
+    }),
+    'restricted_reason': 'WEEK_SCHEDULE',
+  })
+# ---
+# name: test_mower_snapshot[positions]
+  list([
+  ])
+# ---
+# name: test_mower_snapshot[settings]
+  dict({
+    'cutting_height': None,
+    'headlight': dict({
+      'mode': None,
+    }),
+  })
+# ---
+# name: test_mower_snapshot[statistics]
+  dict({
+    'cutting_blade_usage_time': None,
+    'number_of_charging_cycles': None,
+    'number_of_collisions': None,
+    'total_charging_time': None,
+    'total_cutting_time': None,
+    'total_drive_distance': None,
+    'total_running_time': None,
+    'total_searching_time': None,
+  })
+# ---
+# name: test_mower_snapshot[stay_out_zones]
+  None
+# ---
+# name: test_mower_snapshot[system]
+  dict({
+    'model': 'Automower Aspire',
+    'name': 'Test Mower 1',
+    'serial_number': 123,
+  })
+# ---
+# name: test_mower_snapshot[work_areas]
+  None
+# ---
