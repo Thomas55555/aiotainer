@@ -1,6 +1,6 @@
 # aiotainer
 
-[![codecov](https://codecov.io/gh/Thomas55555/aiotainer/graph/badge.svg?token=2BG3S61T6K)](https://codecov.io/gh/Thomas55555/aiotainer)
+[![codecov](https://codecov.io/gh/Thomas55555/aiotainer/graph/badge.svg?token=Hn1Qp8ZvOt)](https://codecov.io/gh/Thomas55555/aiotainer)
 [![Python Versions](https://img.shields.io/pypi/pyversions/aiotainer)](https://pypi.org/project/aiotainer/)
 [![License](https://img.shields.io/github/license/Thomas55555/aiotainer.svg)](LICENSE.md)
 
