@@ -1,19 +1,14 @@
 """An example file to use this library."""
 
-import asyncio
-import datetime
 import logging
-import time
-from pprint import pprint
-from typing import cast
+import pprint
 
+import uvloop
 import yaml
 from aiohttp import ClientSession
 
 from aiotainer.auth import AbstractAuth
-from aiotainer.const import API_BASE_URL
 from aiotainer.client import PortainerClient
-from aiotainer.model import MowerData
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -25,6 +20,7 @@ with open("./secrets.yaml", encoding="UTF-8") as file:
     secrets = yaml.safe_load(file)
 
 ACCESS_TOKEN = secrets["ACCESS_TOKEN"]
+API_BASE_URL = secrets["API_BASE_URL"]
 
 
 class AsyncTokenAuth(AbstractAuth):
@@ -46,18 +42,16 @@ async def main() -> None:
     """Establish connection to mower and print states for 5 minutes."""
     websession = ClientSession()
     automower_api = PortainerClient(AsyncTokenAuth(websession), poll=True)
-    await asyncio.sleep(1)
     await automower_api.connect()
-    for env_id in automower_api.data:
-        test: MowerData = automower_api.data[env_id]
+    for test in automower_api.data.values():
         for snapshot in test.snapshots:
             for container in snapshot.docker_snapshot_raw.containers:
                 print(container.names[0].strip("/"), container.state, container.id)
-                #await automower_api.start_container(env_id, container.id)
-   # The close() will stop the websocket and the token refresh tasks
+                # await automower_api.start_container(env_id, container.id)
+    a = await automower_api.get_status_specific(2)
+    pprint.pprint(a)
     await automower_api.close()
     await websession.close()
 
 
-
-asyncio.run(main())
+uvloop.run(main())

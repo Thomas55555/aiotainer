@@ -7,7 +7,7 @@
        "GroupId":1,
        "PublicURL":"",
        "Gpus":[
-          
+
        ],
        "TLSConfig":{
           "TLS":false,
@@ -19,7 +19,7 @@
           "AuthenticationKey":""
        },
        "TagIds":[
-          
+
        ],
        "Status":1,
        "Snapshots":[
@@ -40,468 +40,6 @@
              "DockerSnapshotRaw":{
                 "Containers":[
                    {
-                      "Id":"8c0ba04a9534d24282929c3af827066e3cf2304fa9d671a3e123bd10ef12efed",
-                      "Names":[
-                         "/vaultwarden"
-                      ],
-                      "Image":"vaultwarden/server:latest",
-                      "ImageID":"sha256:9ae942f38c7c1eefa6f199a6984a7af6f2e54dc6f186aad44363046852b9703f",
-                      "Command":"/start.sh",
-                      "Created":1720510786,
-                      "Ports":[
-                         
-                      ],
-                      "Labels":{
-                         "com.docker.compose.config-hash":"5ac4fd32ead5673f20b323cec8196654713cce45f3039b22027f83b9f4cdf6cc",
-                         "com.docker.compose.container-number":"1",
-                         "com.docker.compose.depends_on":"ts-bitwarden:service_started:true",
-                         "com.docker.compose.image":"sha256:9ae942f38c7c1eefa6f199a6984a7af6f2e54dc6f186aad44363046852b9703f",
-                         "com.docker.compose.oneoff":"False",
-                         "com.docker.compose.project":"vaultwarden",
-                         "com.docker.compose.project.config_files":"/data/compose/3/docker-compose.yml",
-                         "com.docker.compose.project.working_dir":"/data/compose/3",
-                         "com.docker.compose.service":"server",
-                         "com.docker.compose.version":"2.20.2",
-                         "org.opencontainers.image.created":"2024-07-08T21:59:23+00:00",
-                         "org.opencontainers.image.description":"Unofficial Bitwarden compatible server written in Rust - 1.31.0",
-                         "org.opencontainers.image.documentation":"https://github.com/dani-garcia/vaultwarden/wiki",
-                         "org.opencontainers.image.licenses":"AGPL-3.0-only",
-                         "org.opencontainers.image.revision":"d04b94b77d95a9968f61f71969f65aaaa8a496d6",
-                         "org.opencontainers.image.source":"https://github.com/dani-garcia/vaultwarden",
-                         "org.opencontainers.image.url":"https://github.com/dani-garcia/vaultwarden",
-                         "org.opencontainers.image.version":"1.31.0"
-                      },
-                      "State":"running",
-                      "Status":"Up 2 days (healthy)",
-                      "HostConfig":{
-                         "NetworkMode":"container:20ae7e643456fe8b77a8bdab4b9644090f0b416c943594af62f8a020be114211"
-                      },
-                      "NetworkSettings":{
-                         "Networks":{
-                            
-                         }
-                      },
-                      "Mounts":[
-                         {
-                            "Type":"bind",
-                            "Source":"/home/thomas/docker_data/vaultwarden/vw-data",
-                            "Destination":"/data",
-                            "Mode":"rw",
-                            "RW":true,
-                            "Propagation":"rprivate"
-                         }
-                      ]
-                   },
-                   {
-                      "Id":"20ae7e643456fe8b77a8bdab4b9644090f0b416c943594af62f8a020be114211",
-                      "Names":[
-                         "/ts-bitwarden"
-                      ],
-                      "Image":"tailscale/tailscale:latest",
-                      "ImageID":"sha256:cc68fa53184cd75800f713b30748bc1f33cc333d9698286c832971b0453c21f4",
-                      "Command":"/usr/local/bin/containerboot",
-                      "Created":1720510785,
-                      "Ports":[
-                         
-                      ],
-                      "Labels":{
-                         "com.docker.compose.config-hash":"9c26498d46631c4f47d227c8c9d6b5a69b74641495c1cc2ea0e411f622afbb16",
-                         "com.docker.compose.container-number":"1",
-                         "com.docker.compose.depends_on":"",
-                         "com.docker.compose.image":"sha256:cc68fa53184cd75800f713b30748bc1f33cc333d9698286c832971b0453c21f4",
-                         "com.docker.compose.oneoff":"False",
-                         "com.docker.compose.project":"vaultwarden",
-                         "com.docker.compose.project.config_files":"/data/compose/3/docker-compose.yml",
-                         "com.docker.compose.project.working_dir":"/data/compose/3",
-                         "com.docker.compose.service":"ts-bitwarden",
-                         "com.docker.compose.version":"2.20.2"
-                      },
-                      "State":"running",
-                      "Status":"Up 2 days",
-                      "HostConfig":{
-                         "NetworkMode":"vaultwarden_default"
-                      },
-                      "NetworkSettings":{
-                         "Networks":{
-                            "vaultwarden_default":{
-                               "IPAMConfig":"None",
-                               "Links":"None",
-                               "Aliases":"None",
-                               "NetworkID":"d7262cba07aed82ff96eda16a7b3e96e5950cd63a737453cd78d5fa4a81d32b2",
-                               "EndpointID":"5705c9926b58e539347c8e50dca92fa66425a9245e255980d467be7ef1291669",
-                               "Gateway":"172.21.0.1",
-                               "IPAddress":"172.21.0.2",
-                               "IPPrefixLen":16,
-                               "IPv6Gateway":"",
-                               "GlobalIPv6Address":"",
-                               "GlobalIPv6PrefixLen":0,
-                               "MacAddress":"02:42:ac:15:00:02",
-                               "DriverOpts":"None"
-                            }
-                         }
-                      },
-                      "Mounts":[
-                         {
-                            "Type":"bind",
-                            "Source":"/home/thomas/docker_data/vaultwarden/ts-config/config",
-                            "Destination":"/config",
-                            "Mode":"rw",
-                            "RW":true,
-                            "Propagation":"rprivate"
-                         },
-                         {
-                            "Type":"bind",
-                            "Source":"/dev/net/tun",
-                            "Destination":"/dev/net/tun",
-                            "Mode":"rw",
-                            "RW":true,
-                            "Propagation":"rprivate"
-                         },
-                         {
-                            "Type":"bind",
-                            "Source":"/home/thomas/docker_data/vaultwarden/ts-data",
-                            "Destination":"/var/lib/tailscale",
-                            "Mode":"rw",
-                            "RW":true,
-                            "Propagation":"rprivate"
-                         }
-                      ]
-                   },
-                   {
-                      "Id":"59e4ee6293337371179aa72f6dcefb85afd3f0f80bfd78177ceda282fe644d87",
-                      "Names":[
-                         "/seafile"
-                      ],
-                      "Image":"docker.seadrive.org/seafileltd/seafile-pro-mc:latest",
-                      "ImageID":"sha256:dc6dc263c279235f4697a9c0f2f711fa893dfe5529b2e3220492e1c576e3a501",
-                      "Command":"/sbin/my_init -- /scripts/enterpoint.sh",
-                      "Created":1720471464,
-                      "Ports":[
-                         
-                      ],
-                      "Labels":{
-                         "com.docker.compose.config-hash":"ff2fb5ef24351254117520e5ec83614e9fc75a1fc6ce72c05e062670827ceb68",
-                         "com.docker.compose.container-number":"1",
-                         "com.docker.compose.depends_on":"elasticsearch:service_started:false,db:service_started:false,memcached:service_started:false,ts-seafile:service_started:true",
-                         "com.docker.compose.image":"sha256:dc6dc263c279235f4697a9c0f2f711fa893dfe5529b2e3220492e1c576e3a501",
-                         "com.docker.compose.oneoff":"False",
-                         "com.docker.compose.project":"seafile",
-                         "com.docker.compose.project.config_files":"/data/compose/10/docker-compose.yml",
-                         "com.docker.compose.project.working_dir":"/data/compose/10",
-                         "com.docker.compose.service":"seafile",
-                         "com.docker.compose.version":"2.20.2"
-                      },
-                      "State":"running",
-                      "Status":"Up 2 days",
-                      "HostConfig":{
-                         "NetworkMode":"container:8627d98b6aa272821510cf9240fa40a80db1d9e1b4aebadc3bca1a5e5ede1cb0"
-                      },
-                      "NetworkSettings":{
-                         "Networks":{
-                            
-                         }
-                      },
-                      "Mounts":[
-                         {
-                            "Type":"bind",
-                            "Source":"/home/thomas/docker_data/seafile/seafile-data",
-                            "Destination":"/shared",
-                            "Mode":"rw",
-                            "RW":true,
-                            "Propagation":"rprivate"
-                         }
-                      ]
-                   },
-                   {
-                      "Id":"a503e03616fad10bcff52c9648f5fbd3b6c1c09f41839fa2aaf6695bf4a1c985",
-                      "Names":[
-                         "/seafile-mysql"
-                      ],
-                      "Image":"mariadb:10.11",
-                      "ImageID":"sha256:6aa03f63fdf61468f3a665747793d2a5007e52cb8a3571fc33ae1c259de5fae3",
-                      "Command":"docker-entrypoint.sh mariadbd",
-                      "Created":1720471464,
-                      "Ports":[
-                         {
-                            "PrivatePort":3306,
-                            "Type":"tcp"
-                         }
-                      ],
-                      "Labels":{
-                         "com.docker.compose.config-hash":"fa95963229fb2a6d04c2df3944288e377cbaf9bd4a5e5ea648ed45217498da59",
-                         "com.docker.compose.container-number":"1",
-                         "com.docker.compose.depends_on":"",
-                         "com.docker.compose.image":"sha256:6aa03f63fdf61468f3a665747793d2a5007e52cb8a3571fc33ae1c259de5fae3",
-                         "com.docker.compose.oneoff":"False",
-                         "com.docker.compose.project":"seafile",
-                         "com.docker.compose.project.config_files":"/data/compose/10/docker-compose.yml",
-                         "com.docker.compose.project.working_dir":"/data/compose/10",
-                         "com.docker.compose.service":"db",
-                         "com.docker.compose.version":"2.20.2",
-                         "org.opencontainers.image.authors":"MariaDB Community",
-                         "org.opencontainers.image.base.name":"docker.io/library/ubuntu:jammy",
-                         "org.opencontainers.image.description":"MariaDB Database for relational SQL",
-                         "org.opencontainers.image.documentation":"https://hub.docker.com/_/mariadb/",
-                         "org.opencontainers.image.licenses":"GPL-2.0",
-                         "org.opencontainers.image.ref.name":"ubuntu",
-                         "org.opencontainers.image.source":"https://github.com/MariaDB/mariadb-docker",
-                         "org.opencontainers.image.title":"MariaDB Database",
-                         "org.opencontainers.image.url":"https://github.com/MariaDB/mariadb-docker",
-                         "org.opencontainers.image.vendor":"MariaDB Community",
-                         "org.opencontainers.image.version":"10.11.8"
-                      },
-                      "State":"running",
-                      "Status":"Up 2 days",
-                      "HostConfig":{
-                         "NetworkMode":"seafile_default"
-                      },
-                      "NetworkSettings":{
-                         "Networks":{
-                            "seafile_default":{
-                               "IPAMConfig":"None",
-                               "Links":"None",
-                               "Aliases":"None",
-                               "NetworkID":"7ebe1895c6cd11d0bdd8f8531f51e52dda0d19207a615459cd205ec61f30b20d",
-                               "EndpointID":"bea6313d09743923f0e6107a2c13f9535d2f3ce486bbd07418a8936957790e72",
-                               "Gateway":"172.20.0.1",
-                               "IPAddress":"172.20.0.4",
-                               "IPPrefixLen":16,
-                               "IPv6Gateway":"",
-                               "GlobalIPv6Address":"",
-                               "GlobalIPv6PrefixLen":0,
-                               "MacAddress":"02:42:ac:14:00:04",
-                               "DriverOpts":"None"
-                            }
-                         }
-                      },
-                      "Mounts":[
-                         {
-                            "Type":"bind",
-                            "Source":"/home/thomas/docker_data/seafile/seafile-mysql/db",
-                            "Destination":"/var/lib/mysql",
-                            "Mode":"rw",
-                            "RW":true,
-                            "Propagation":"rprivate"
-                         }
-                      ]
-                   },
-                   {
-                      "Id":"bda3b595f7454f6994e3e17d88b71ac00a7be7ad41f28ba1202e288722d942cc",
-                      "Names":[
-                         "/seafile-elasticsearch"
-                      ],
-                      "Image":"elasticsearch:8.6.2",
-                      "ImageID":"sha256:04485c81cc2d3ae1ae68e8be87f8a5043d71496332680a5b2e58664be95461c5",
-                      "Command":"/bin/tini -- /usr/local/bin/docker-entrypoint.sh eswrapper",
-                      "Created":1720471464,
-                      "Ports":[
-                         {
-                            "PrivatePort":9200,
-                            "Type":"tcp"
-                         },
-                         {
-                            "PrivatePort":9300,
-                            "Type":"tcp"
-                         }
-                      ],
-                      "Labels":{
-                         "com.docker.compose.config-hash":"29b827768bec7399efbbc9a9e9488f7c9b6b997316615550f501c23f630a1ff5",
-                         "com.docker.compose.container-number":"1",
-                         "com.docker.compose.depends_on":"",
-                         "com.docker.compose.image":"sha256:04485c81cc2d3ae1ae68e8be87f8a5043d71496332680a5b2e58664be95461c5",
-                         "com.docker.compose.oneoff":"False",
-                         "com.docker.compose.project":"seafile",
-                         "com.docker.compose.project.config_files":"/data/compose/10/docker-compose.yml",
-                         "com.docker.compose.project.working_dir":"/data/compose/10",
-                         "com.docker.compose.service":"elasticsearch",
-                         "com.docker.compose.version":"2.20.2",
-                         "org.label-schema.build-date":"2023-02-13T09:35:20.314882762Z",
-                         "org.label-schema.license":"Elastic-License-2.0",
-                         "org.label-schema.name":"Elasticsearch",
-                         "org.label-schema.schema-version":"1.0",
-                         "org.label-schema.url":"https://www.elastic.co/products/elasticsearch",
-                         "org.label-schema.usage":"https://www.elastic.co/guide/en/elasticsearch/reference/index.html",
-                         "org.label-schema.vcs-ref":"2d58d0f136141f03239816a4e360a8d17b6d8f29",
-                         "org.label-schema.vcs-url":"https://github.com/elastic/elasticsearch",
-                         "org.label-schema.vendor":"Elastic",
-                         "org.label-schema.version":"8.6.2",
-                         "org.opencontainers.image.created":"2023-02-13T09:35:20.314882762Z",
-                         "org.opencontainers.image.documentation":"https://www.elastic.co/guide/en/elasticsearch/reference/index.html",
-                         "org.opencontainers.image.licenses":"Elastic-License-2.0",
-                         "org.opencontainers.image.ref.name":"ubuntu",
-                         "org.opencontainers.image.revision":"2d58d0f136141f03239816a4e360a8d17b6d8f29",
-                         "org.opencontainers.image.source":"https://github.com/elastic/elasticsearch",
-                         "org.opencontainers.image.title":"Elasticsearch",
-                         "org.opencontainers.image.url":"https://www.elastic.co/products/elasticsearch",
-                         "org.opencontainers.image.vendor":"Elastic",
-                         "org.opencontainers.image.version":"8.6.2"
-                      },
-                      "State":"running",
-                      "Status":"Up 2 days",
-                      "HostConfig":{
-                         "NetworkMode":"seafile_default"
-                      },
-                      "NetworkSettings":{
-                         "Networks":{
-                            "seafile_default":{
-                               "IPAMConfig":"None",
-                               "Links":"None",
-                               "Aliases":"None",
-                               "NetworkID":"7ebe1895c6cd11d0bdd8f8531f51e52dda0d19207a615459cd205ec61f30b20d",
-                               "EndpointID":"6c57b849fc02270ecf8557f2ac28de50cc660a0821e9bb87ec906a98285a3b86",
-                               "Gateway":"172.20.0.1",
-                               "IPAddress":"172.20.0.3",
-                               "IPPrefixLen":16,
-                               "IPv6Gateway":"",
-                               "GlobalIPv6Address":"",
-                               "GlobalIPv6PrefixLen":0,
-                               "MacAddress":"02:42:ac:14:00:03",
-                               "DriverOpts":"None"
-                            }
-                         }
-                      },
-                      "Mounts":[
-                         {
-                            "Type":"bind",
-                            "Source":"/home/thomas/docker_data/seafile/seafile-elasticsearch/data",
-                            "Destination":"/usr/share/elasticsearch/data",
-                            "Mode":"rw",
-                            "RW":true,
-                            "Propagation":"rprivate"
-                         }
-                      ]
-                   },
-                   {
-                      "Id":"7cd34bdd94ac11bf6b36bbd8c764e258d2eb97ec4f5eec029eb8b54b611c1887",
-                      "Names":[
-                         "/seafile-memcached"
-                      ],
-                      "Image":"memcached:1.6.18",
-                      "ImageID":"sha256:0730201b15c15e703daf7eaf85715fee8c58a18a44962ed953ea934360ac7219",
-                      "Command":"memcached -m 256",
-                      "Created":1720471464,
-                      "Ports":[
-                         {
-                            "PrivatePort":11211,
-                            "Type":"tcp"
-                         }
-                      ],
-                      "Labels":{
-                         "com.docker.compose.config-hash":"26c353f52a4de5c6485cf75710432641eab32a3d838fd7be5bf56a72fead6c10",
-                         "com.docker.compose.container-number":"1",
-                         "com.docker.compose.depends_on":"",
-                         "com.docker.compose.image":"sha256:0730201b15c15e703daf7eaf85715fee8c58a18a44962ed953ea934360ac7219",
-                         "com.docker.compose.oneoff":"False",
-                         "com.docker.compose.project":"seafile",
-                         "com.docker.compose.project.config_files":"/data/compose/10/docker-compose.yml",
-                         "com.docker.compose.project.working_dir":"/data/compose/10",
-                         "com.docker.compose.service":"memcached",
-                         "com.docker.compose.version":"2.20.2"
-                      },
-                      "State":"running",
-                      "Status":"Up 2 days",
-                      "HostConfig":{
-                         "NetworkMode":"seafile_default"
-                      },
-                      "NetworkSettings":{
-                         "Networks":{
-                            "seafile_default":{
-                               "IPAMConfig":"None",
-                               "Links":"None",
-                               "Aliases":"None",
-                               "NetworkID":"7ebe1895c6cd11d0bdd8f8531f51e52dda0d19207a615459cd205ec61f30b20d",
-                               "EndpointID":"232633aba78a104d21cfdaa8e86e9caa42f187076360ae389decd6e9c414d006",
-                               "Gateway":"172.20.0.1",
-                               "IPAddress":"172.20.0.5",
-                               "IPPrefixLen":16,
-                               "IPv6Gateway":"",
-                               "GlobalIPv6Address":"",
-                               "GlobalIPv6PrefixLen":0,
-                               "MacAddress":"02:42:ac:14:00:05",
-                               "DriverOpts":"None"
-                            }
-                         }
-                      },
-                      "Mounts":[
-                         
-                      ]
-                   },
-                   {
-                      "Id":"8627d98b6aa272821510cf9240fa40a80db1d9e1b4aebadc3bca1a5e5ede1cb0",
-                      "Names":[
-                         "/ts-seafile"
-                      ],
-                      "Image":"tailscale/tailscale:latest",
-                      "ImageID":"sha256:cc68fa53184cd75800f713b30748bc1f33cc333d9698286c832971b0453c21f4",
-                      "Command":"/usr/local/bin/containerboot",
-                      "Created":1720471464,
-                      "Ports":[
-                         
-                      ],
-                      "Labels":{
-                         "com.docker.compose.config-hash":"f3e52ebdd16e3413643df4f755a3e36f4c43a0cef695bb0eebc466fb1040c7c9",
-                         "com.docker.compose.container-number":"1",
-                         "com.docker.compose.depends_on":"",
-                         "com.docker.compose.image":"sha256:cc68fa53184cd75800f713b30748bc1f33cc333d9698286c832971b0453c21f4",
-                         "com.docker.compose.oneoff":"False",
-                         "com.docker.compose.project":"seafile",
-                         "com.docker.compose.project.config_files":"/data/compose/10/docker-compose.yml",
-                         "com.docker.compose.project.working_dir":"/data/compose/10",
-                         "com.docker.compose.service":"ts-seafile",
-                         "com.docker.compose.version":"2.20.2"
-                      },
-                      "State":"running",
-                      "Status":"Up 2 days",
-                      "HostConfig":{
-                         "NetworkMode":"seafile_default"
-                      },
-                      "NetworkSettings":{
-                         "Networks":{
-                            "seafile_default":{
-                               "IPAMConfig":"None",
-                               "Links":"None",
-                               "Aliases":"None",
-                               "NetworkID":"7ebe1895c6cd11d0bdd8f8531f51e52dda0d19207a615459cd205ec61f30b20d",
-                               "EndpointID":"7e975fa839208ab8310f6c4c69a144dc6caf24c60bd5ed83bf7f4f519ae90736",
-                               "Gateway":"172.20.0.1",
-                               "IPAddress":"172.20.0.2",
-                               "IPPrefixLen":16,
-                               "IPv6Gateway":"",
-                               "GlobalIPv6Address":"",
-                               "GlobalIPv6PrefixLen":0,
-                               "MacAddress":"02:42:ac:14:00:02",
-                               "DriverOpts":"None"
-                            }
-                         }
-                      },
-                      "Mounts":[
-                         {
-                            "Type":"bind",
-                            "Source":"/dev/net/tun",
-                            "Destination":"/dev/net/tun",
-                            "Mode":"rw",
-                            "RW":true,
-                            "Propagation":"rprivate"
-                         },
-                         {
-                            "Type":"bind",
-                            "Source":"/home/thomas/docker_data/seafile/ts-data",
-                            "Destination":"/var/lib/tailscale",
-                            "Mode":"rw",
-                            "RW":true,
-                            "Propagation":"rprivate"
-                         },
-                         {
-                            "Type":"bind",
-                            "Source":"/home/thomas/docker_data/seafile/ts-config/config",
-                            "Destination":"/config",
-                            "Mode":"rw",
-                            "RW":true,
-                            "Propagation":"rprivate"
-                         }
-                      ]
-                   },
-                   {
                       "Id":"cd1939dc524aca2ff7e3b1afdc80c3609466ec79b80dd0cb6ffed65df3c66088",
                       "Names":[
                          "/linkding"
@@ -511,7 +49,7 @@
                       "Command":"./bootstrap.sh",
                       "Created":1720183268,
                       "Ports":[
-                         
+
                       ],
                       "Labels":{
                          "com.docker.compose.config-hash":"559d5e376ba375bc97352ad6e8a2fb1cca1e4f9a5ca0080ca37c5f6c772df805",
@@ -533,7 +71,7 @@
                       },
                       "NetworkSettings":{
                          "Networks":{
-                            
+
                          }
                       },
                       "Mounts":[
@@ -557,7 +95,7 @@
                       "Command":"/usr/local/bin/containerboot",
                       "Created":1720183095,
                       "Ports":[
-                         
+
                       ],
                       "Labels":{
                          "com.docker.compose.config-hash":"bae4e9d4dc2b9786986dd3541614aa94f194da5a622251976fb19187a942500f",
@@ -767,10 +305,10 @@
                       },
                       "ConfigOnly":false,
                       "Containers":{
-                         
+
                       },
                       "Options":{
-                         
+
                       },
                       "Labels":{
                          "com.docker.compose.network":"default",
@@ -798,13 +336,13 @@
                       },
                       "ConfigOnly":false,
                       "Containers":{
-                         
+
                       },
                       "Options":{
-                         
+
                       },
                       "Labels":{
-                         
+
                       }
                    },
                    {
@@ -832,7 +370,7 @@
                       },
                       "ConfigOnly":false,
                       "Containers":{
-                         
+
                       },
                       "Options":{
                          "com.docker.network.bridge.default_bridge":"true",
@@ -843,43 +381,7 @@
                          "com.docker.network.driver.mtu":"1500"
                       },
                       "Labels":{
-                         
-                      }
-                   },
-                   {
-                      "Name":"baikal_default",
-                      "Id":"53e8384cb16599faf5ad79ed4cf2c26e276c95823147ddffaca13ca032585c04",
-                      "Created":"2024-06-28T08:16:00.460669271+02:00",
-                      "Scope":"local",
-                      "Driver":"bridge",
-                      "EnableIPv6":false,
-                      "IPAM":{
-                         "Driver":"default",
-                         "Options":"None",
-                         "Config":[
-                            {
-                               "Subnet":"172.19.0.0/16",
-                               "Gateway":"172.19.0.1"
-                            }
-                         ]
-                      },
-                      "Internal":false,
-                      "Attachable":false,
-                      "Ingress":false,
-                      "ConfigFrom":{
-                         "Network":""
-                      },
-                      "ConfigOnly":false,
-                      "Containers":{
-                         
-                      },
-                      "Options":{
-                         
-                      },
-                      "Labels":{
-                         "com.docker.compose.network":"default",
-                         "com.docker.compose.project":"baikal",
-                         "com.docker.compose.version":"2.20.2"
+
                       }
                    },
                    {
@@ -902,114 +404,17 @@
                       },
                       "ConfigOnly":false,
                       "Containers":{
-                         
+
                       },
                       "Options":{
-                         
+
                       },
                       "Labels":{
-                         
-                      }
-                   },
-                   {
-                      "Name":"seafile_default",
-                      "Id":"7ebe1895c6cd11d0bdd8f8531f51e52dda0d19207a615459cd205ec61f30b20d",
-                      "Created":"2024-07-08T22:44:24.09640713+02:00",
-                      "Scope":"local",
-                      "Driver":"bridge",
-                      "EnableIPv6":false,
-                      "IPAM":{
-                         "Driver":"default",
-                         "Options":"None",
-                         "Config":[
-                            {
-                               "Subnet":"172.20.0.0/16",
-                               "Gateway":"172.20.0.1"
-                            }
-                         ]
-                      },
-                      "Internal":false,
-                      "Attachable":false,
-                      "Ingress":false,
-                      "ConfigFrom":{
-                         "Network":""
-                      },
-                      "ConfigOnly":false,
-                      "Containers":{
-                         
-                      },
-                      "Options":{
-                         
-                      },
-                      "Labels":{
-                         "com.docker.compose.network":"default",
-                         "com.docker.compose.project":"seafile",
-                         "com.docker.compose.version":"2.20.2"
-                      }
-                   },
-                   {
-                      "Name":"vaultwarden_default",
-                      "Id":"d7262cba07aed82ff96eda16a7b3e96e5950cd63a737453cd78d5fa4a81d32b2",
-                      "Created":"2024-07-09T09:39:45.72245649+02:00",
-                      "Scope":"local",
-                      "Driver":"bridge",
-                      "EnableIPv6":false,
-                      "IPAM":{
-                         "Driver":"default",
-                         "Options":"None",
-                         "Config":[
-                            {
-                               "Subnet":"172.21.0.0/16",
-                               "Gateway":"172.21.0.1"
-                            }
-                         ]
-                      },
-                      "Internal":false,
-                      "Attachable":false,
-                      "Ingress":false,
-                      "ConfigFrom":{
-                         "Network":""
-                      },
-                      "ConfigOnly":false,
-                      "Containers":{
-                         
-                      },
-                      "Options":{
-                         
-                      },
-                      "Labels":{
-                         "com.docker.compose.network":"default",
-                         "com.docker.compose.project":"vaultwarden",
-                         "com.docker.compose.version":"2.20.2"
+
                       }
                    }
                 ],
                 "Images":[
-                   {
-                      "Containers":-1,
-                      "Created":1720477254,
-                      "Id":"sha256:9ae942f38c7c1eefa6f199a6984a7af6f2e54dc6f186aad44363046852b9703f",
-                      "Labels":{
-                         "org.opencontainers.image.created":"2024-07-08T21:59:23+00:00",
-                         "org.opencontainers.image.description":"Unofficial Bitwarden compatible server written in Rust - 1.31.0",
-                         "org.opencontainers.image.documentation":"https://github.com/dani-garcia/vaultwarden/wiki",
-                         "org.opencontainers.image.licenses":"AGPL-3.0-only",
-                         "org.opencontainers.image.revision":"d04b94b77d95a9968f61f71969f65aaaa8a496d6",
-                         "org.opencontainers.image.source":"https://github.com/dani-garcia/vaultwarden",
-                         "org.opencontainers.image.url":"https://github.com/dani-garcia/vaultwarden",
-                         "org.opencontainers.image.version":"1.31.0"
-                      },
-                      "ParentId":"",
-                      "RepoDigests":[
-                         "vaultwarden/server@sha256:4e28425bad4bd13568e1779f682ff7e441eca2ecd079bd77cfcba6e4eaf1b999"
-                      ],
-                      "RepoTags":[
-                         "vaultwarden/server:latest"
-                      ],
-                      "SharedSize":-1,
-                      "Size":206695309,
-                      "VirtualSize":206695309
-                   },
                    {
                       "Containers":-1,
                       "Created":1718835327,
@@ -1041,189 +446,12 @@
                       "SharedSize":-1,
                       "Size":479540708,
                       "VirtualSize":479540708
-                   },
-                   {
-                      "Containers":-1,
-                      "Created":1718073444,
-                      "Id":"sha256:6aa03f63fdf61468f3a665747793d2a5007e52cb8a3571fc33ae1c259de5fae3",
-                      "Labels":{
-                         "org.opencontainers.image.authors":"MariaDB Community",
-                         "org.opencontainers.image.base.name":"docker.io/library/ubuntu:jammy",
-                         "org.opencontainers.image.description":"MariaDB Database for relational SQL",
-                         "org.opencontainers.image.documentation":"https://hub.docker.com/_/mariadb/",
-                         "org.opencontainers.image.licenses":"GPL-2.0",
-                         "org.opencontainers.image.ref.name":"ubuntu",
-                         "org.opencontainers.image.source":"https://github.com/MariaDB/mariadb-docker",
-                         "org.opencontainers.image.title":"MariaDB Database",
-                         "org.opencontainers.image.url":"https://github.com/MariaDB/mariadb-docker",
-                         "org.opencontainers.image.vendor":"MariaDB Community",
-                         "org.opencontainers.image.version":"10.11.8"
-                      },
-                      "ParentId":"",
-                      "RepoDigests":[
-                         "mariadb@sha256:4a1af2879d45c2c56aff1ac079ad8c6d0004ef148c8754a8fbb1c3df3cf46ff1"
-                      ],
-                      "RepoTags":[
-                         "mariadb:10.11"
-                      ],
-                      "SharedSize":-1,
-                      "Size":404250724,
-                      "VirtualSize":404250724
-                   },
-                   {
-                      "Containers":-1,
-                      "Created":1714163854,
-                      "Id":"sha256:4ca93a7bd52fb11ef1b47656f057c5786b087a80128161950512d98d22dd0ea0",
-                      "Labels":{
-                         "description":"Baikal is a Cal and CardDAV server, based on sabre/dav, that includes an administrative interface for easy management.",
-                         "maintainer":"NGINX Docker Maintainers <docker-maint@nginx.com>",
-                         "org.opencontainers.image.created":"2024-04-26T20:37:24.113Z",
-                         "org.opencontainers.image.description":"Provides a ready-to-go Baikal server, incl. docker-compose.yml & Systemd service file",
-                         "org.opencontainers.image.licenses":"MIT",
-                         "org.opencontainers.image.revision":"7b49ab4af8c03ec1b6e454252a7178e855ff04f9",
-                         "org.opencontainers.image.source":"https://github.com/MrAlucardDante/baikal-docker-hass",
-                         "org.opencontainers.image.title":"baikal-docker-hass",
-                         "org.opencontainers.image.url":"https://github.com/MrAlucardDante/baikal-docker-hass",
-                         "org.opencontainers.image.version":"0.9.5",
-                         "repository":"https://github.com/MrAlucardDante/baikal-docker-hass",
-                         "version":"0.9.4",
-                         "website":"http://sabre.io/baikal/"
-                      },
-                      "ParentId":"",
-                      "RepoDigests":[
-                         "ghcr.io/mralucarddante/baikal-docker-hass@sha256:5da19b2cbb69659c96d11ae3b14c0fa115a6347c82e8b120e9d07f36a630fce0"
-                      ],
-                      "RepoTags":[
-                         "ghcr.io/mralucarddante/baikal-docker-hass:latest"
-                      ],
-                      "SharedSize":-1,
-                      "Size":250844499,
-                      "VirtualSize":250844499
-                   },
-                   {
-                      "Containers":-1,
-                      "Created":1713743470,
-                      "Id":"sha256:a3f85c245ec38eacdd9b749659c351a1d2601a08fa784c9c4b7200b83c64eb0c",
-                      "Labels":{
-                         "com.docker.desktop.extension.api.version":">= 0.2.2",
-                         "com.docker.desktop.extension.icon":"https://portainer-io-assets.sfo2.cdn.digitaloceanspaces.com/logos/portainer.png",
-                         "com.docker.extension.additional-urls":"[{\"title\":\"Website\",\"url\":\"https://www.portainer.io?utm_campaign=DockerCon&utm_source=DockerDesktop\"},{\"title\":\"Documentation\",\"url\":\"https://docs.portainer.io\"},{\"title\":\"Support\",\"url\":\"https://join.slack.com/t/portainer/shared_invite/zt-txh3ljab-52QHTyjCqbe5RibC2lcjKA\"}]",
-                         "com.docker.extension.detailed-description":"<p data-renderer-start-pos=\"226\">Portainer&rsquo;s Docker Desktop extension gives you access to all of Portainer&rsquo;s rich management functionality within your docker desktop experience.</p><h2 data-renderer-start-pos=\"374\">With Portainer you can:</h2><ul><li>See all your running containers</li><li>Easily view all of your container logs</li><li>Console into containers</li><li>Easily deploy your code into containers using a simple form</li><li>Turn your YAML into custom templates for easy reuse</li></ul><h2 data-renderer-start-pos=\"660\">About Portainer&nbsp;</h2><p data-renderer-start-pos=\"680\">Portainer is the worlds&rsquo; most popular universal container management platform with more than 650,000 active monthly users. Portainer can be used to manage Docker Standalone, Kubernetes, Docker Swarm and Nomad environments through a single common interface. It includes a simple GitOps automation engine and a Kube API.&nbsp;</p><p data-renderer-start-pos=\"1006\">Portainer Business Edition is our fully supported commercial grade product for business-wide use. It includes all the functionality that businesses need to manage containers at scale. Visit <a class=\"sc-jKJlTe dPfAtb\" href=\"http://portainer.io/\" title=\"http://Portainer.io\" data-renderer-mark=\"true\">Portainer.io</a> to learn more about Portainer Business and <a class=\"sc-jKJlTe dPfAtb\" href=\"http://portainer.io/take-3?utm_campaign=DockerCon&amp;utm_source=Docker%20Desktop\" title=\"http://portainer.io/take-3?utm_campaign=DockerCon&amp;utm_source=Docker%20Desktop\" data-renderer-mark=\"true\">get 3 free nodes.</a></p>",
-                         "com.docker.extension.publisher-url":"https://www.portainer.io",
-                         "com.docker.extension.screenshots":"[{\"alt\": \"screenshot one\", \"url\": \"https://portainer-io-assets.sfo2.digitaloceanspaces.com/screenshots/docker-extension-1.png\"},{\"alt\": \"screenshot two\", \"url\": \"https://portainer-io-assets.sfo2.digitaloceanspaces.com/screenshots/docker-extension-2.png\"},{\"alt\": \"screenshot three\", \"url\": \"https://portainer-io-assets.sfo2.digitaloceanspaces.com/screenshots/docker-extension-3.png\"},{\"alt\": \"screenshot four\", \"url\": \"https://portainer-io-assets.sfo2.digitaloceanspaces.com/screenshots/docker-extension-4.png\"},{\"alt\": \"screenshot five\", \"url\": \"https://portainer-io-assets.sfo2.digitaloceanspaces.com/screenshots/docker-extension-5.png\"},{\"alt\": \"screenshot six\", \"url\": \"https://portainer-io-assets.sfo2.digitaloceanspaces.com/screenshots/docker-extension-6.png\"},{\"alt\": \"screenshot seven\", \"url\": \"https://portainer-io-assets.sfo2.digitaloceanspaces.com/screenshots/docker-extension-7.png\"},{\"alt\": \"screenshot eight\", \"url\": \"https://portainer-io-assets.sfo2.digitaloceanspaces.com/screenshots/docker-extension-8.png\"},{\"alt\": \"screenshot nine\", \"url\": \"https://portainer-io-assets.sfo2.digitaloceanspaces.com/screenshots/docker-extension-9.png\"}]",
-                         "io.portainer.server":"true",
-                         "org.opencontainers.image.description":"Docker container management made simple, with the world’s most popular GUI-based container management platform.",
-                         "org.opencontainers.image.title":"Portainer",
-                         "org.opencontainers.image.vendor":"Portainer.io"
-                      },
-                      "ParentId":"",
-                      "RepoDigests":[
-                         "portainer/portainer-ce@sha256:4a1ceadd7f7898d9190ee0a6d22234c4323aefd80e796e84f5e57127f74370f1"
-                      ],
-                      "RepoTags":[
-                         "portainer/portainer-ce:latest"
-                      ],
-                      "SharedSize":-1,
-                      "Size":292768236,
-                      "VirtualSize":292768236
-                   },
-                   {
-                      "Containers":-1,
-                      "Created":1710931798,
-                      "Id":"sha256:dc6dc263c279235f4697a9c0f2f711fa893dfe5529b2e3220492e1c576e3a501",
-                      "Labels":"None",
-                      "ParentId":"",
-                      "RepoDigests":[
-                         "docker.seadrive.org/seafileltd/seafile-pro-mc@sha256:07a3b49aff9f346639ff2f2f640ded07c1c79b6a225e2a02a36405792d46f0af"
-                      ],
-                      "RepoTags":[
-                         "docker.seadrive.org/seafileltd/seafile-pro-mc:latest"
-                      ],
-                      "SharedSize":-1,
-                      "Size":1774803945,
-                      "VirtualSize":1774803945
-                   },
-                   {
-                      "Containers":-1,
-                      "Created":1709405929,
-                      "Id":"sha256:739990a8e47503c1fc39dbeb466765bcd3041dd627f810088ab8f903ace852dd",
-                      "Labels":{
-                         "org.opencontainers.image.created":"2024-03-02T18:41:49+00:00",
-                         "org.opencontainers.image.description":"Unofficial Bitwarden compatible server written in Rust - 1.30.5",
-                         "org.opencontainers.image.documentation":"https://github.com/dani-garcia/vaultwarden/wiki",
-                         "org.opencontainers.image.licenses":"AGPL-3.0-only",
-                         "org.opencontainers.image.revision":"d0c22b9fc90ae52aedbbccdafe9915bd0bdb0d84",
-                         "org.opencontainers.image.source":"https://github.com/dani-garcia/vaultwarden",
-                         "org.opencontainers.image.url":"https://github.com/dani-garcia/vaultwarden",
-                         "org.opencontainers.image.version":"1.30.5"
-                      },
-                      "ParentId":"",
-                      "RepoDigests":[
-                         "vaultwarden/server@sha256:edb8e2bab9cbca22e555638294db9b3657ffbb6e5d149a29d7ccdb243e3c71e0"
-                      ],
-                      "RepoTags":"None",
-                      "SharedSize":-1,
-                      "Size":200968530,
-                      "VirtualSize":200968530
-                   },
-                   {
-                      "Containers":-1,
-                      "Created":1677657918,
-                      "Id":"sha256:0730201b15c15e703daf7eaf85715fee8c58a18a44962ed953ea934360ac7219",
-                      "Labels":"None",
-                      "ParentId":"",
-                      "RepoDigests":[
-                         "memcached@sha256:4ab520657d9919221f752771bb013d632c9b39cea9dfae9162244b2e39885bcd"
-                      ],
-                      "RepoTags":[
-                         "memcached:1.6.18"
-                      ],
-                      "SharedSize":-1,
-                      "Size":89262251,
-                      "VirtualSize":89262251
-                   },
-                   {
-                      "Containers":-1,
-                      "Created":1676281356,
-                      "Id":"sha256:04485c81cc2d3ae1ae68e8be87f8a5043d71496332680a5b2e58664be95461c5",
-                      "Labels":{
-                         "org.label-schema.build-date":"2023-02-13T09:35:20.314882762Z",
-                         "org.label-schema.license":"Elastic-License-2.0",
-                         "org.label-schema.name":"Elasticsearch",
-                         "org.label-schema.schema-version":"1.0",
-                         "org.label-schema.url":"https://www.elastic.co/products/elasticsearch",
-                         "org.label-schema.usage":"https://www.elastic.co/guide/en/elasticsearch/reference/index.html",
-                         "org.label-schema.vcs-ref":"2d58d0f136141f03239816a4e360a8d17b6d8f29",
-                         "org.label-schema.vcs-url":"https://github.com/elastic/elasticsearch",
-                         "org.label-schema.vendor":"Elastic",
-                         "org.label-schema.version":"8.6.2",
-                         "org.opencontainers.image.created":"2023-02-13T09:35:20.314882762Z",
-                         "org.opencontainers.image.documentation":"https://www.elastic.co/guide/en/elasticsearch/reference/index.html",
-                         "org.opencontainers.image.licenses":"Elastic-License-2.0",
-                         "org.opencontainers.image.ref.name":"ubuntu",
-                         "org.opencontainers.image.revision":"2d58d0f136141f03239816a4e360a8d17b6d8f29",
-                         "org.opencontainers.image.source":"https://github.com/elastic/elasticsearch",
-                         "org.opencontainers.image.title":"Elasticsearch",
-                         "org.opencontainers.image.url":"https://www.elastic.co/products/elasticsearch",
-                         "org.opencontainers.image.vendor":"Elastic",
-                         "org.opencontainers.image.version":"8.6.2"
-                      },
-                      "ParentId":"",
-                      "RepoDigests":[
-                         "elasticsearch@sha256:93bc71907ca0e6e3b4f181e0dc850b90bb6cb2686c2778def0b8542398983c28"
-                      ],
-                      "RepoTags":[
-                         "elasticsearch:8.6.2"
-                      ],
-                      "SharedSize":-1,
-                      "Size":1288836896,
-                      "VirtualSize":1288836896
                    }
                 ],
                 "Info":{
                    "ID":"faaa3215-e284-4a1d-9089-d9c6c28c290e",
-                   "Containers":12,
-                   "ContainersRunning":12,
+                   "Containers":2,
+                   "ContainersRunning":2,
                    "ContainersPaused":0,
                    "ContainersStopped":0,
                    "Images":10,
@@ -1310,7 +538,7 @@
                          "docker.io":{
                             "Name":"docker.io",
                             "Mirrors":[
-                               
+
                             ],
                             "Secure":true,
                             "Official":true
@@ -1327,7 +555,7 @@
                    "NoProxy":"",
                    "Name":"service",
                    "Labels":[
-                      
+
                    ],
                    "ExperimentalBuild":false,
                    "ServerVersion":"26.1.3",
@@ -1425,21 +653,21 @@
              "NodeCount":0,
              "GpuUseAll":false,
              "GpuUseList":[
-                
+
              ]
           }
        ],
        "UserAccessPolicies":{
-          
+
        },
        "TeamAccessPolicies":{
-          
+
        },
        "EdgeKey":"",
        "EdgeCheckinInterval":5,
        "Kubernetes":{
           "Snapshots":[
-             
+
           ],
           "Configuration":{
              "UseLoadBalancer":false,
@@ -1447,10 +675,10 @@
              "EnableResourceOverCommit":false,
              "ResourceOverCommitPercentage":0,
              "StorageClasses":[
-                
+
              ],
              "IngressClasses":[
-                
+
              ],
              "RestrictDefaultNamespace":false,
              "IngressAvailabilityPerNamespace":false,

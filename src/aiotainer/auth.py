@@ -13,17 +13,14 @@ from aiohttp import (
     ClientResponseError,
     ClientSession,
     ClientWebSocketResponse,
-    WSServerHandshakeError,
 )
 
-from .const import API_BASE_URL, AUTH_HEADER_FMT, WS_URL
 from .exceptions import (
     ApiBadRequestException,
     ApiException,
     ApiForbiddenException,
     ApiUnauthorizedException,
     AuthException,
-    HusqvarnaWSServerHandshakeError,
 )
 
 ERROR = "error"
@@ -39,7 +36,7 @@ class AbstractAuth(ABC):
     def __init__(self, websession: ClientSession, host: str) -> None:
         """Initialize the auth."""
         self._websession = websession
-        self._host = host if host is not None else API_BASE_URL
+        self._host = host
         self._client_id = ""
         self.loop = asyncio.get_event_loop()
         self.ws_status: bool = True
@@ -72,7 +69,7 @@ class AbstractAuth(ABC):
             raise ApiException(f"Error connecting to API: {err}") from err
         return await AbstractAuth._raise_for_status(resp)
 
-    async def get_json(self, url: str, **kwargs: Mapping[str, Any]) -> dict[str, Any]:
+    async def get_json(self, url: str, **kwargs: Mapping[str, Any]) -> list[Any]:
         """Make a get request and return json response."""
         resp = await self.get(url, **kwargs)
         try:
@@ -80,6 +77,20 @@ class AbstractAuth(ABC):
         except ClientError as err:
             raise ApiException("Server returned malformed response") from err
         if not isinstance(result, list):
+            raise ApiException(f"Server return malformed response: {result}")
+        _LOGGER.debug("response=%s", result)
+        return result
+
+    async def get_json_node(
+        self, url: str, **kwargs: Mapping[str, Any]
+    ) -> Mapping[Any, Any]:
+        """Make a get request and return json response."""
+        resp = await self.get(url, **kwargs)
+        try:
+            result = await resp.json(encoding="UTF-8")
+        except ClientError as err:
+            raise ApiException("Server returned malformed response") from err
+        if not isinstance(result, dict):
             raise ApiException(f"Server return malformed response: {result}")
         _LOGGER.debug("response=%s", result)
         return result
@@ -131,8 +142,6 @@ class AbstractAuth(ABC):
         except ClientError as err:
             raise AuthException(f"Access token failure: {err}") from err
 
-
-
     @staticmethod
     async def _raise_for_status(resp: ClientResponse) -> ClientResponse:
         """Raise exceptions on failure methods."""
@@ -174,15 +183,3 @@ class AbstractAuth(ABC):
         if MESSAGE in error:
             message.append(error[MESSAGE])
         return message
-
-    async def websocket_connect(self) -> None:
-        """Start a websocket connection."""
-        token = await self._async_get_access_token()
-        try:
-            self.ws = await self._websession.ws_connect(
-                url=WS_URL,
-                headers={"Authorization": AUTH_HEADER_FMT.format(token)},
-                heartbeat=60,
-            )
-        except WSServerHandshakeError as err:
-            raise HusqvarnaWSServerHandshakeError(err) from err

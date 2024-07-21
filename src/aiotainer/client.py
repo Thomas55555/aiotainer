@@ -2,16 +2,12 @@
 
 import asyncio
 import contextlib
-import datetime
 import logging
 from dataclasses import dataclass
-from typing import Any, Iterable, Literal, Mapping
-
-from aiohttp import WSMessage, WSMsgType
+from typing import Any, Iterable
 
 from .auth import AbstractAuth
-from .const import EVENT_TYPES, REST_POLL_CYCLE
-from .exceptions import NoDataAvailableException, TimeoutException
+from .const import REST_POLL_CYCLE
 from .model import NodeData
 from .utils import mower_list_to_dictionary_dataclass
 
@@ -22,18 +18,28 @@ logging.basicConfig(level=logging.DEBUG)
 
 @dataclass
 class PortainerEndpoint:
-    """Endpoint URLs for the AutomowerConnect API."""
+    """Endpoint URLs for the Portainer API."""
 
-    entpoints = "endpoints"
+    endpoints = "endpoints"
     "List data for all mowers linked to a user."
+
+    endpoints_env = "endpoints/{env_id}"
+    "List data for all mowers linked to a user."
+
+    restart = "endpoints/{env_id}/docker/containers/{container_id}/restart"
+    "Restart a specific container in an environment."
 
     start = "endpoints/{env_id}/docker/containers/{container_id}/start"
-    "List data for all mowers linked to a user."
+    "Start a specific container in an environment."
+
+    stop = "endpoints/{env_id}/docker/containers/{container_id}/stop"
+    "Stop a specific container in an environment."
+
 
 class PortainerClient:
-    """Automower API to communicate with an Automower.
+    """API to communicate with an Portainer.
 
-    The `AutomowerSession` is the primary API service for this library. It supports
+    The `PortainerClient` is the primary API service for this library. It supports
     operations like getting a status or sending commands.
     """
 
@@ -49,14 +55,10 @@ class PortainerClient:
         """
         self._data: dict[str, Iterable[Any]] | None = {}
         self.auth = auth
-        self.pong_cbs: list = []
-        self.data_update_cbs: list = []
-        self.data: dict[str, MowerAttributes] = {}
-        self.last_ws_message: datetime.datetime
+        self.data: dict[int, NodeData] = {}
         self.loop: asyncio.AbstractEventLoop = asyncio.get_running_loop()
         self.poll = poll
         self.rest_task: asyncio.Task | None = None
-
 
     async def connect(self) -> None:
         """Connect to the API.
@@ -69,37 +71,33 @@ class PortainerClient:
             await self.get_status()
             self.rest_task = asyncio.create_task(self._rest_task())
 
-
-    async def get_status(self) -> None:
-        """Get mower status via Rest."""
-        mower_list = await self.auth.get_json(PortainerEndpoint.entpoints)
-        self._data = mower_list
-        self.data = mower_list_to_dictionary_dataclass(self._data)
+    async def get_status(self) -> dict[int, NodeData]:
+        """Get status of all endpoints."""
+        mower_list = await self.auth.get_json(PortainerEndpoint.endpoints)
+        self.data = mower_list_to_dictionary_dataclass(mower_list)
         return self.data
 
-    # def _update_data(self, new_data) -> None:
-    #     """Update internal data, with new data from websocket."""
-    #     if self._data is None:
-    #         raise NoDataAvailableException
+    async def get_status_specific(self, env_id: int) -> NodeData:
+        """Get status of a specific endpoint."""
+        mower_list = await self.auth.get_json_node(
+            PortainerEndpoint.endpoints_env.format(env_id=env_id)
+        )
+        self.data[env_id] = NodeData.from_dict(mower_list)
+        return self.data[env_id]
 
-    #     data = self._data["data"]
-    #     for mower in data:
-    #         if mower["type"] == "mower" and mower["id"] == new_data["id"]:
-    #             new_attributes: Mapping[Any, Any] = new_data["attributes"]
-    #             value: Mapping[Any, Any]
-    #             for attrib, value in new_attributes.items():
-    #                 mower["attributes"][attrib] = value
-    #     self.data = mower_list_to_dictionary_dataclass(self._data)
-    #     self._schedule_data_callbacks()
+    async def restart_container(self, env_id: int, container_id: str):
+        """Restart container."""
+        url = PortainerEndpoint.restart.format(env_id=env_id, container_id=container_id)
+        await self.auth.post(url)
 
     async def start_container(self, env_id: int, container_id: str):
-        """Resume schedule.
-
-        Remove any override on the Planner and let the mower
-        resume to the schedule set by the Calendar.
-        """
-        #body = {}
+        """Start container."""
         url = PortainerEndpoint.start.format(env_id=env_id, container_id=container_id)
+        await self.auth.post(url)
+
+    async def stop_container(self, env_id: int, container_id: str):
+        """Stop container."""
+        url = PortainerEndpoint.stop.format(env_id=env_id, container_id=container_id)
         await self.auth.post(url)
 
     async def _rest_task(self) -> None:

@@ -26,9 +26,5 @@ def mock_automower_client() -> Generator[AsyncMock, None, None]:
         autospec=True,
     ) as mock_client:
         client = mock_client.return_value
-        client.get.return_value = json.loads(
-            load_fixture("get.json")
-        )
+        client.get.return_value = json.loads(load_fixture("get.json"))
         yield client
-
-
