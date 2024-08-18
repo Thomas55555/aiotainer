@@ -46,9 +46,7 @@ class AbstractAuth(ABC):
     async def async_get_access_token(self) -> str:
         """Return a valid access token."""
 
-    async def request(
-        self, method: str, url: str, **kwargs: Mapping[str, Any] | None
-    ) -> ClientResponse:
+    async def request(self, method: str, url: str, **kwargs: Any) -> ClientResponse:
         """Make a request."""
         access_token = await self._async_get_access_token()
         headers = {
@@ -61,7 +59,7 @@ class AbstractAuth(ABC):
             _LOGGER.debug("request[post json]=%s", kwargs["json"])
         return await self._websession.request(method, url, **kwargs, headers=headers)
 
-    async def get(self, url: str, **kwargs: Mapping[str, Any]) -> ClientResponse:
+    async def get(self, url: str, **kwargs: Any) -> ClientResponse:
         """Make a get request."""
         try:
             resp = await self.request("get", url, **kwargs)
@@ -69,7 +67,7 @@ class AbstractAuth(ABC):
             raise ApiException(f"Error connecting to API: {err}") from err
         return await AbstractAuth._raise_for_status(resp)
 
-    async def get_json(self, url: str, **kwargs: Mapping[str, Any]) -> list[Any]:
+    async def get_json(self, url: str, **kwargs: Any) -> list[Any]:
         """Make a get request and return json response."""
         resp = await self.get(url, **kwargs)
         try:
@@ -81,9 +79,7 @@ class AbstractAuth(ABC):
         _LOGGER.debug("response=%s", result)
         return result
 
-    async def get_json_node(
-        self, url: str, **kwargs: Mapping[str, Any]
-    ) -> Mapping[Any, Any]:
+    async def get_json_node(self, url: str, **kwargs: Any) -> Mapping[Any, Any]:
         """Make a get request and return json response."""
         resp = await self.get(url, **kwargs)
         try:
@@ -95,7 +91,7 @@ class AbstractAuth(ABC):
         _LOGGER.debug("response=%s", result)
         return result
 
-    async def post(self, url: str, **kwargs: Mapping[str, Any]) -> ClientResponse:
+    async def post(self, url: str, **kwargs: Any) -> ClientResponse:
         """Make a post request."""
         try:
             resp = await self.request("post", url, **kwargs)
@@ -103,29 +99,9 @@ class AbstractAuth(ABC):
             raise ApiException(f"Error connecting to API: {err}") from err
         return await AbstractAuth._raise_for_status(resp)
 
-    async def post_json(self, url: str, **kwargs: Mapping[str, Any]) -> dict[str, Any]:
+    async def post_json(self, url: str, **kwargs: Any) -> dict[str, Any]:
         """Make a post request and return a json response."""
         resp = await self.post(url, **kwargs)
-        try:
-            result = await resp.json()
-        except ClientError as err:
-            raise ApiException("Server returned malformed response") from err
-        if not isinstance(result, dict):
-            raise ApiException(f"Server returned malformed response: {result}")
-        _LOGGER.debug("response=%s", result)
-        return result
-
-    async def patch(self, url: str, **kwargs: Mapping[str, Any]) -> ClientResponse:
-        """Make a post request."""
-        try:
-            resp = await self.request("patch", url, **kwargs)
-        except ClientError as err:
-            raise ApiException(f"Error connecting to API: {err}") from err
-        return await AbstractAuth._raise_for_status(resp)
-
-    async def patch_json(self, url: str, **kwargs: Mapping[str, Any]) -> dict[str, Any]:
-        """Make a post request and return a json response."""
-        resp = await self.patch(url, **kwargs)
         try:
             result = await resp.json()
         except ClientError as err:
