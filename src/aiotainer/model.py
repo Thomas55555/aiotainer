@@ -1,4 +1,4 @@
-"""Models for Husqvarna Automower data."""
+"""Models for Portainer API data."""
 
 from dataclasses import dataclass, field
 from enum import Enum
@@ -124,7 +124,7 @@ class NodeData(DataClassDictMixin):
 
 
 @dataclass
-class MowerList(DataClassDictMixin):
-    """DataClass for a list of all mowers."""
+class PortainerList(DataClassDictMixin):
+    """DataClass for a list of all portainers."""
 
     data: list[NodeData]
