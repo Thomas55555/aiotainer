@@ -24,7 +24,7 @@ class PortainerEndpoint:
     "List data for all portainer instances."
 
     endpoints_env = "endpoints/{env_id}"
-    "List data for a sepcific env_id."
+    "List data for a specific env_id."
 
     restart = "endpoints/{env_id}/docker/containers/{container_id}/restart"
     "Restart a specific container in an environment."
@@ -73,16 +73,16 @@ class PortainerClient:
 
     async def get_status(self) -> dict[int, NodeData]:
         """Get status of all endpoints."""
-        list = await self.auth.get_json(PortainerEndpoint.endpoints)
-        self.data = portainer_list_to_dictionary(list)
+        portainer_list = await self.auth.get_json(PortainerEndpoint.endpoints)
+        self.data = portainer_list_to_dictionary(portainer_list)
         return self.data
 
     async def get_status_specific(self, env_id: int) -> NodeData:
         """Get status of a specific endpoint."""
-        list = await self.auth.get_json_node(
+        portainer_list = await self.auth.get_json_node(
             PortainerEndpoint.endpoints_env.format(env_id=env_id)
         )
-        self.data[env_id] = NodeData.from_dict(list)
+        self.data[env_id] = NodeData.from_dict(portainer_list)
         return self.data[env_id]
 
     async def restart_container(self, env_id: int, container_id: str):
