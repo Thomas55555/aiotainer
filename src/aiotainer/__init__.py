@@ -1,4 +1,4 @@
-"""Automower library using aiohttp."""
+"""Aiotainer library using aiohttp."""
 
 __all__ = [
     "auth",

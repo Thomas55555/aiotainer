@@ -17,10 +17,10 @@ if TYPE_CHECKING:
     )
 
 
-class AutomowerSnapshotSerializer(AmberDataSerializer):
-    """Automower snapshot serializer for Syrupy.
+class AiotainerSnapshotSerializer(AmberDataSerializer):
+    """Aiotainer snapshot serializer for Syrupy.
 
-    Handles special cases for Automower data structures.
+    Handles special cases for Aiotainer data structures.
     """
 
     @classmethod
@@ -51,13 +51,13 @@ class AutomowerSnapshotSerializer(AmberDataSerializer):
         )
 
 
-class AutomowerSnapshotExtension(AmberSnapshotExtension):
-    """AutomowerSnapshotExtension for Syrupy."""
+class AiotainerSnapshotExtension(AmberSnapshotExtension):
+    """AiotainerSnapshotExtension for Syrupy."""
 
     VERSION = "1"
     """Current version of serialization format.
 
-    Need to be bumped when we change the AutomowerSnapshotSerializer.
+    Need to be bumped when we change the AiotainerSnapshotSerializer.
     """
 
-    serializer_class: type[AmberDataSerializer] = AutomowerSnapshotSerializer
+    serializer_class: type[AmberDataSerializer] = AiotainerSnapshotSerializer

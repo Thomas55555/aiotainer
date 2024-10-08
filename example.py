@@ -24,13 +24,13 @@ API_BASE_URL = secrets["API_BASE_URL"]
 
 
 class AsyncTokenAuth(AbstractAuth):
-    """Provide Automower authentication tied to an OAuth2 based config entry."""
+    """Provide aiotainer authentication tied to an OAuth2 based config entry."""
 
     def __init__(
         self,
         websession: ClientSession,
     ) -> None:
-        """Initialize Husqvarna Automower auth."""
+        """Initialize aiotainer auth."""
         super().__init__(websession, API_BASE_URL)
 
     async def async_get_access_token(self) -> str:
@@ -39,18 +39,17 @@ class AsyncTokenAuth(AbstractAuth):
 
 
 async def main() -> None:
-    """Establish connection to mower and print states for 5 minutes."""
+    """Establish connection to portainer and print states."""
     websession = ClientSession()
-    automower_api = PortainerClient(AsyncTokenAuth(websession), poll=True)
-    await automower_api.connect()
-    for test in automower_api.data.values():
+    aiotainer_api = PortainerClient(AsyncTokenAuth(websession), poll=True)
+    await aiotainer_api.connect()
+    for test in aiotainer_api.data.values():
         for snapshot in test.snapshots:
             for container in snapshot.docker_snapshot_raw.containers:
                 print(container.names[0].strip("/"), container.state, container.id)
-                # await automower_api.start_container(env_id, container.id)
-    a = await automower_api.get_status_specific(2)
+    a = await aiotainer_api.get_status_specific(2)
     pprint.pprint(a)
-    await automower_api.close()
+    await aiotainer_api.close()
     await websession.close()
 
 

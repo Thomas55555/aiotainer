@@ -1,4 +1,4 @@
-"""Module for AbstractAuth for Husqvarna Automower."""
+"""Module for AbstractAuth for aiotainer."""
 
 import asyncio
 import logging
