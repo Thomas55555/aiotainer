@@ -37,7 +37,7 @@ Issues = "https://github.com/Thomas55555/aiotainer/issues"
 python = "^3.11"
 aiohttp = "^3.9.3"
 mashumaro = "^3.12"
-uvloop = "^0.20.0"
+uvloop = "^0.21.0"
 
 [tool.poetry.group.dev.dependencies]
 codespell = "2.3.0"
