@@ -37,7 +37,6 @@ class AbstractAuth(ABC):
         """Initialize the auth."""
         self._websession = websession
         self._host = host
-        self._client_id = ""
         self.loop = asyncio.get_event_loop()
         self.ws_status: bool = True
         self.ws: ClientWebSocketResponse
@@ -57,10 +56,13 @@ class AbstractAuth(ABC):
         _LOGGER.debug("request[%s]=%s %s", method, url, kwargs.get("params"))
         if method != "get" and "json" in kwargs:
             _LOGGER.debug("request[post json]=%s", kwargs["json"])
-        return await self._websession.request(method, url, **kwargs, headers=headers)
+        return await self._websession.request(
+            method, url, ssl=False, **kwargs, headers=headers
+        )
 
     async def get(self, url: str, **kwargs: Any) -> ClientResponse:
         """Make a get request."""
+        _LOGGER.debug("url: %s", url)
         try:
             resp = await self.request("get", url, **kwargs)
         except ClientError as err:

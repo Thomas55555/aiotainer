@@ -4,7 +4,8 @@ import asyncio
 import contextlib
 import logging
 from dataclasses import dataclass
-from typing import Any, Iterable
+from typing import Any
+from collections.abc import Iterable
 
 from .auth import AbstractAuth
 from .const import REST_POLL_CYCLE
@@ -20,19 +21,19 @@ logging.basicConfig(level=logging.DEBUG)
 class PortainerEndpoint:
     """Endpoint URLs for the Portainer API."""
 
-    endpoints = "endpoints"
+    endpoints = "api/endpoints"
     "List data for all portainer instances."
 
-    endpoints_env = "endpoints/{env_id}"
+    endpoints_env = "api/endpoints/{env_id}"
     "List data for a specific env_id."
 
-    restart = "endpoints/{env_id}/docker/containers/{container_id}/restart"
+    restart = "api/endpoints/{env_id}/docker/containers/{container_id}/restart"
     "Restart a specific container in an environment."
 
-    start = "endpoints/{env_id}/docker/containers/{container_id}/start"
+    start = "api/endpoints/{env_id}/docker/containers/{container_id}/start"
     "Start a specific container in an environment."
 
-    stop = "endpoints/{env_id}/docker/containers/{container_id}/stop"
+    stop = "api/endpoints/{env_id}/docker/containers/{container_id}/stop"
     "Stop a specific container in an environment."
 
 
