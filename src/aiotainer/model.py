@@ -1,4 +1,4 @@
-"""Models for Husqvarna Automower data."""
+"""Models for Portainer API data."""
 
 from dataclasses import dataclass, field
 from enum import Enum
@@ -38,8 +38,12 @@ class PortType(Enum):
 class State(Enum):
     """Enumeration for container states."""
 
-    RUNNING = "running"
+    CREATED = "created"
+    DEAD = "dead"
     EXITED = "exited"
+    RUNNING = "running"
+    RESTARTING = "restarting"
+    PAUSED = "paused"
 
 
 @dataclass
@@ -47,7 +51,11 @@ class Container(DataClassDictMixin):
     """Dataclass for container information."""
 
     id: str = field(metadata=field_options(alias="Id"))
-    names: list[str] = field(metadata=field_options(alias="Names"))
+    names: list[str] = field(
+        metadata=field_options(
+            alias="Names", deserialize=lambda x: x[0].strip("/").capitalize()
+        )
+    )
     image: str = field(metadata=field_options(alias="Image"))
     state: State = field(metadata=field_options(alias="State"))
 
@@ -124,7 +132,7 @@ class NodeData(DataClassDictMixin):
 
 
 @dataclass
-class MowerList(DataClassDictMixin):
-    """DataClass for a list of all mowers."""
+class PortainerList(DataClassDictMixin):
+    """DataClass for a list of all portainers."""
 
     data: list[NodeData]

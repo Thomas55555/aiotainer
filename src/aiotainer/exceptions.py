@@ -1,41 +1,33 @@
-"""Library for exceptions using the Husqvarna Automower API."""
+"""Library for exceptions using the Portainer API."""
 
 
-class HusqvarnaAutomowerException(Exception):
+class PortainerException(Exception):
     """Base class for all client exceptions."""
 
 
-class ApiException(HusqvarnaAutomowerException):
+class ApiException(PortainerException):
     """Raised during problems talking to the API."""
 
 
-class AuthException(HusqvarnaAutomowerException):
+class AuthException(PortainerException):
     """Raised due to auth problems talking to API."""
 
 
-class InvalidSyncTokenException(HusqvarnaAutomowerException):
-    """Raised when the sync token is invalid."""
-
-
-class ApiBadRequestException(HusqvarnaAutomowerException):
+class ApiBadRequestException(PortainerException):
     """Raised due sending a Rest command resulting in a bad request."""
 
 
-class ApiForbiddenException(HusqvarnaAutomowerException):
+class ApiForbiddenException(PortainerException):
     """Raised due to permission errors talking to API."""
 
 
-class ApiUnauthorizedException(HusqvarnaAutomowerException):
+class ApiUnauthorizedException(PortainerException):
     """Raised occasionally, mustn't harm the connection."""
 
 
-class NoDataAvailableException(HusqvarnaAutomowerException):
+class NoDataAvailableException(PortainerException):
     """Raised due updating data, when no data is available."""
 
 
-class TimeoutException(HusqvarnaAutomowerException):
+class TimeoutException(PortainerException):
     """Raised due connecting the websocket."""
-
-
-class HusqvarnaWSServerHandshakeError(HusqvarnaAutomowerException):
-    """Raised due connecting the websocket if server not available."""

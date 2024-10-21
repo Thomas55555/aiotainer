@@ -4,16 +4,14 @@
 [![Python Versions](https://img.shields.io/pypi/pyversions/aiotainer)](https://pypi.org/project/aiotainer/)
 [![License](https://img.shields.io/github/license/Thomas55555/aiotainer.svg)](LICENSE.md)
 
-Asynchronous library to communicate with the Automower Connect API
-To use this library, you need to register on the [Husqvarna Developers Portal](https://developer.husqvarnagroup.cloud/).
-And connect your account to the `Authentication API` and the `Automower Connect API`.
+Asynchronous library to communicate with the Portainer API
 
 ## Quickstart
 
 In order to use the library, you'll need to do some work yourself to get authentication
 credentials. This depends a lot on the context (e.g. redirecting to use OAuth via web)
-but should be easy to incorporate using Husqvarna's authentication examples. See
-Husqvarna's [Authentication API](https://developer.husqvarnagroup.cloud/apis/authentication-api) for details.
+but should be easy to incorporate using Portainers's authentication examples. See
+Portainers's [Authentication](https://docs.portainer.io/admin/settings/authentication) for details.
 
 You will implement `AbstractAuth` to provide an access token. Your implementation
 will handle any necessary refreshes. You can invoke the service with your auth implementation
