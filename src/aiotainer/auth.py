@@ -33,13 +33,14 @@ _LOGGER = logging.getLogger(__name__)
 class AbstractAuth(ABC):
     """Abstract class to make authenticated requests."""
 
-    def __init__(self, websession: ClientSession, host: str) -> None:
+    def __init__(self, websession: ClientSession, host: str, port: int) -> None:
         """Initialize the auth."""
         self._websession = websession
-        self._host = host
+        self.__host = host
         self.loop = asyncio.get_event_loop()
         self.ws_status: bool = True
         self.ws: ClientWebSocketResponse
+        self._host = f"{self.__host}:{port}"
 
     @abstractmethod
     async def async_get_access_token(self) -> str:
