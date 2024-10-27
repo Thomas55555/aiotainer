@@ -136,6 +136,13 @@ class FDOConfiguration(DataClassDictMixin):
     )
 
 
+seconds_per_unit = {"s": 1, "m": 60, "h": 3600, "d": 86400, "w": 604800}
+
+
+def convert_to_seconds(s: str) -> int:
+    return int(s[:-1]) * seconds_per_unit[s[-1]]
+
+
 @dataclass
 class EdgeConfiguration(DataClassDictMixin):
     """Settings for Edge computing configurations."""
@@ -145,7 +152,10 @@ class EdgeConfiguration(DataClassDictMixin):
     )
     ping_interval: int = field(default=0, metadata=field_options(alias="PingInterval"))
     snapshot_interval: int = field(
-        default=0, metadata=field_options(alias="SnapshotInterval")
+        default=0,
+        metadata=field_options(
+            alias="SnapshotInterval", deserialize=convert_to_seconds
+        ),
     )
     async_mode: bool = field(default=False, metadata=field_options(alias="AsyncMode"))
 
