@@ -70,14 +70,14 @@ class AbstractAuth(ABC):
             raise ApiException(f"Error connecting to API: {err}") from err
         return await AbstractAuth._raise_for_status(resp)
 
-    async def get_json(self, url: str, **kwargs: Any) -> list[Any]:
+    async def get_json(self, url: str, **kwargs: Any) -> Any:
         """Make a get request and return json response."""
         resp = await self.get(url, **kwargs)
         try:
             result = await resp.json(encoding="UTF-8")
         except ClientError as err:
             raise ApiException("Server returned malformed response") from err
-        if not isinstance(result, list):
+        if not isinstance(result, list | dict):
             raise ApiException(f"Server return malformed response: {result}")
         _LOGGER.debug("response=%s", result)
         return result

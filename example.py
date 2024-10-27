@@ -21,6 +21,7 @@ with open("./secrets.yaml", encoding="UTF-8") as file:
 
 ACCESS_TOKEN = secrets["ACCESS_TOKEN"]
 API_BASE_URL = secrets["API_BASE_URL"]
+PORT = secrets["PORT"]
 
 
 class AsyncTokenAuth(AbstractAuth):
@@ -31,7 +32,7 @@ class AsyncTokenAuth(AbstractAuth):
         websession: ClientSession,
     ) -> None:
         """Initialize aiotainer auth."""
-        super().__init__(websession, API_BASE_URL)
+        super().__init__(websession, API_BASE_URL, PORT)
 
     async def async_get_access_token(self) -> str:
         """Return a valid access token."""
@@ -43,6 +44,10 @@ async def main() -> None:
     websession = ClientSession()
     aiotainer_api = PortainerClient(AsyncTokenAuth(websession), poll=True)
     await aiotainer_api.connect()
+    settings = await aiotainer_api.get_settings()
+    print("SETTINGS")
+    print("::::::::")
+    pprint.pprint(settings)
     for test in aiotainer_api.data.values():
         for snapshot in test.snapshots:
             for container in snapshot.docker_snapshot_raw.containers:

@@ -10,6 +10,7 @@ from typing import Any
 from .auth import AbstractAuth
 from .const import REST_POLL_CYCLE
 from .model import NodeData
+from .portainer_settings import PortainerSettings
 from .utils import portainer_list_to_dictionary
 
 _LOGGER = logging.getLogger(__name__)
@@ -20,6 +21,9 @@ logging.basicConfig(level=logging.DEBUG)
 @dataclass
 class PortainerEndpoint:
     """Endpoint URLs for the Portainer API."""
+
+    settings = "api/settings"
+    "List data for all portainer instances."
 
     endpoints = "api/endpoints"
     "List data for all portainer instances."
@@ -71,6 +75,11 @@ class PortainerClient:
         if self.poll:
             await self.get_status()
             self.rest_task = asyncio.create_task(self._rest_task())
+
+    async def get_settings(self) -> PortainerSettings:
+        """Get status of all endpoints."""
+        portainer_list = await self.auth.get_json(PortainerEndpoint.settings)
+        return PortainerSettings.from_dict(portainer_list)
 
     async def get_status(self) -> dict[int, NodeData]:
         """Get status of all endpoints."""
