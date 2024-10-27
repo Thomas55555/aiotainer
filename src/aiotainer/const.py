@@ -1,3 +1,3 @@
 """The constants for aiotainer."""
 
-REST_POLL_CYCLE = 300
+REST_POLL_CYCLE = 30

@@ -28,13 +28,13 @@ async def test_post_commands(mock_aiotainer_client: AbstractAuth):
     setattr(mock_aiotainer_client, "post", mocked_method)
     await aiotainer_api.start_container(NODE_ID, CONTAINER_ID)
     mocked_method.assert_called_with(
-        f"endpoints/{NODE_ID}/docker/containers/{CONTAINER_ID}/start",
+        f"api/endpoints/{NODE_ID}/docker/containers/{CONTAINER_ID}/start",
     )
     await aiotainer_api.stop_container(NODE_ID, CONTAINER_ID)
     mocked_method.assert_called_with(
-        f"endpoints/{NODE_ID}/docker/containers/{CONTAINER_ID}/stop",
+        f"api/endpoints/{NODE_ID}/docker/containers/{CONTAINER_ID}/stop",
     )
     await aiotainer_api.restart_container(NODE_ID, CONTAINER_ID)
     mocked_method.assert_called_with(
-        f"endpoints/{NODE_ID}/docker/containers/{CONTAINER_ID}/restart",
+        f"api/endpoints/{NODE_ID}/docker/containers/{CONTAINER_ID}/restart",
     )

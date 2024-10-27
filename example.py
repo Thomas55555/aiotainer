@@ -1,9 +1,9 @@
 """An example file to use this library."""
 
+import asyncio
 import logging
 import pprint
 
-import uvloop
 import yaml
 from aiohttp import ClientSession
 
@@ -49,8 +49,9 @@ async def main() -> None:
                 print(container.names[0].strip("/"), container.state, container.id)
     a = await aiotainer_api.get_status_specific(2)
     pprint.pprint(a)
+    await asyncio.sleep(2000)
     await aiotainer_api.close()
     await websession.close()
 
 
-uvloop.run(main())
+asyncio.run(main())

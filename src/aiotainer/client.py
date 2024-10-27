@@ -3,9 +3,9 @@
 import asyncio
 import contextlib
 import logging
+from collections.abc import Iterable
 from dataclasses import dataclass
 from typing import Any
-from collections.abc import Iterable
 
 from .auth import AbstractAuth
 from .const import REST_POLL_CYCLE
