@@ -1,4 +1,4 @@
-"""Module for AbstractAuth for Husqvarna Automower."""
+"""Module for AbstractAuth for aiotainer."""
 
 import asyncio
 import logging
@@ -33,14 +33,14 @@ _LOGGER = logging.getLogger(__name__)
 class AbstractAuth(ABC):
     """Abstract class to make authenticated requests."""
 
-    def __init__(self, websession: ClientSession, host: str) -> None:
+    def __init__(self, websession: ClientSession, host: str, port: int) -> None:
         """Initialize the auth."""
         self._websession = websession
-        self._host = host
-        self._client_id = ""
+        self.__host = host
         self.loop = asyncio.get_event_loop()
         self.ws_status: bool = True
         self.ws: ClientWebSocketResponse
+        self._host = f"{self.__host}:{port}"
 
     @abstractmethod
     async def async_get_access_token(self) -> str:
@@ -57,24 +57,27 @@ class AbstractAuth(ABC):
         _LOGGER.debug("request[%s]=%s %s", method, url, kwargs.get("params"))
         if method != "get" and "json" in kwargs:
             _LOGGER.debug("request[post json]=%s", kwargs["json"])
-        return await self._websession.request(method, url, **kwargs, headers=headers)
+        return await self._websession.request(
+            method, url, ssl=False, **kwargs, headers=headers
+        )
 
     async def get(self, url: str, **kwargs: Any) -> ClientResponse:
         """Make a get request."""
+        _LOGGER.debug("url: %s", url)
         try:
             resp = await self.request("get", url, **kwargs)
         except ClientError as err:
             raise ApiException(f"Error connecting to API: {err}") from err
         return await AbstractAuth._raise_for_status(resp)
 
-    async def get_json(self, url: str, **kwargs: Any) -> list[Any]:
+    async def get_json(self, url: str, **kwargs: Any) -> Any:
         """Make a get request and return json response."""
         resp = await self.get(url, **kwargs)
         try:
             result = await resp.json(encoding="UTF-8")
         except ClientError as err:
             raise ApiException("Server returned malformed response") from err
-        if not isinstance(result, list):
+        if not isinstance(result, list | dict):
             raise ApiException(f"Server return malformed response: {result}")
         _LOGGER.debug("response=%s", result)
         return result

@@ -1,4 +1,4 @@
-"""Test helpers for Husqvarna Automower."""
+"""Test helpers for aiotainer."""
 
 import json
 from collections.abc import Generator
@@ -9,18 +9,18 @@ from syrupy import SnapshotAssertion
 
 from tests import load_fixture
 
-from .syrupy import AutomowerSnapshotExtension
+from .syrupy import AiotainerSnapshotExtension
 
 
 @pytest.fixture(name="snapshot")
 def snapshot_assertion(snapshot: SnapshotAssertion) -> SnapshotAssertion:
-    """Return snapshot assertion fixture with the Automower extension."""
-    return snapshot.use_extension(AutomowerSnapshotExtension)
+    """Return snapshot assertion fixture with the Aiotainer extension."""
+    return snapshot.use_extension(AiotainerSnapshotExtension)
 
 
 @pytest.fixture
-def mock_automower_client() -> Generator[AsyncMock, None, None]:
-    """Mock a Auth Automower client."""
+def mock_aiotainer_client() -> Generator[AsyncMock, None, None]:
+    """Mock a Auth aiotainer client."""
     with patch(
         "aiotainer.auth.AbstractAuth",
         autospec=True,

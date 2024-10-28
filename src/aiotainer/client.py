@@ -1,15 +1,17 @@
-"""Module to connect to Automower with websocket."""
+"""Module to connect to the portainer server."""
 
 import asyncio
 import contextlib
 import logging
+from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import Any, Iterable
+from typing import Any
 
 from .auth import AbstractAuth
 from .const import REST_POLL_CYCLE
 from .model import NodeData
-from .utils import mower_list_to_dictionary_dataclass
+from .portainer_settings import PortainerSettings
+from .utils import portainer_list_to_dictionary
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -20,19 +22,22 @@ logging.basicConfig(level=logging.DEBUG)
 class PortainerEndpoint:
     """Endpoint URLs for the Portainer API."""
 
-    endpoints = "endpoints"
-    "List data for all mowers linked to a user."
+    settings = "api/settings"
+    "List data for all portainer instances."
 
-    endpoints_env = "endpoints/{env_id}"
-    "List data for all mowers linked to a user."
+    endpoints = "api/endpoints"
+    "List data for all portainer instances."
 
-    restart = "endpoints/{env_id}/docker/containers/{container_id}/restart"
+    endpoints_env = "api/endpoints/{env_id}"
+    "List data for a specific env_id."
+
+    restart = "api/endpoints/{env_id}/docker/containers/{container_id}/restart"
     "Restart a specific container in an environment."
 
-    start = "endpoints/{env_id}/docker/containers/{container_id}/start"
+    start = "api/endpoints/{env_id}/docker/containers/{container_id}/start"
     "Start a specific container in an environment."
 
-    stop = "endpoints/{env_id}/docker/containers/{container_id}/stop"
+    stop = "api/endpoints/{env_id}/docker/containers/{container_id}/stop"
     "Stop a specific container in an environment."
 
 
@@ -71,18 +76,23 @@ class PortainerClient:
             await self.get_status()
             self.rest_task = asyncio.create_task(self._rest_task())
 
+    async def get_settings(self) -> PortainerSettings:
+        """Get status of all endpoints."""
+        portainer_list = await self.auth.get_json(PortainerEndpoint.settings)
+        return PortainerSettings.from_dict(portainer_list)
+
     async def get_status(self) -> dict[int, NodeData]:
         """Get status of all endpoints."""
-        mower_list = await self.auth.get_json(PortainerEndpoint.endpoints)
-        self.data = mower_list_to_dictionary_dataclass(mower_list)
+        portainer_list = await self.auth.get_json(PortainerEndpoint.endpoints)
+        self.data = portainer_list_to_dictionary(portainer_list)
         return self.data
 
     async def get_status_specific(self, env_id: int) -> NodeData:
         """Get status of a specific endpoint."""
-        mower_list = await self.auth.get_json_node(
+        portainer_list = await self.auth.get_json_node(
             PortainerEndpoint.endpoints_env.format(env_id=env_id)
         )
-        self.data[env_id] = NodeData.from_dict(mower_list)
+        self.data[env_id] = NodeData.from_dict(portainer_list)
         return self.data[env_id]
 
     async def restart_container(self, env_id: int, container_id: str):

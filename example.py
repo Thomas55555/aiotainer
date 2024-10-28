@@ -1,9 +1,9 @@
 """An example file to use this library."""
 
+import asyncio
 import logging
 import pprint
 
-import uvloop
 import yaml
 from aiohttp import ClientSession
 
@@ -21,17 +21,18 @@ with open("./secrets.yaml", encoding="UTF-8") as file:
 
 ACCESS_TOKEN = secrets["ACCESS_TOKEN"]
 API_BASE_URL = secrets["API_BASE_URL"]
+PORT = secrets["PORT"]
 
 
 class AsyncTokenAuth(AbstractAuth):
-    """Provide Automower authentication tied to an OAuth2 based config entry."""
+    """Provide aiotainer authentication tied to an OAuth2 based config entry."""
 
     def __init__(
         self,
         websession: ClientSession,
     ) -> None:
-        """Initialize Husqvarna Automower auth."""
-        super().__init__(websession, API_BASE_URL)
+        """Initialize aiotainer auth."""
+        super().__init__(websession, API_BASE_URL, PORT)
 
     async def async_get_access_token(self) -> str:
         """Return a valid access token."""
@@ -39,19 +40,23 @@ class AsyncTokenAuth(AbstractAuth):
 
 
 async def main() -> None:
-    """Establish connection to mower and print states for 5 minutes."""
+    """Establish connection to portainer and print states."""
     websession = ClientSession()
-    automower_api = PortainerClient(AsyncTokenAuth(websession), poll=True)
-    await automower_api.connect()
-    for test in automower_api.data.values():
+    aiotainer_api = PortainerClient(AsyncTokenAuth(websession), poll=True)
+    await aiotainer_api.connect()
+    settings = await aiotainer_api.get_settings()
+    print("SETTINGS")
+    print("::::::::")
+    pprint.pprint(settings)
+    for test in aiotainer_api.data.values():
         for snapshot in test.snapshots:
             for container in snapshot.docker_snapshot_raw.containers:
                 print(container.names[0].strip("/"), container.state, container.id)
-                # await automower_api.start_container(env_id, container.id)
-    a = await automower_api.get_status_specific(2)
+    a = await aiotainer_api.get_status_specific(2)
     pprint.pprint(a)
-    await automower_api.close()
+    await asyncio.sleep(2000)
+    await aiotainer_api.close()
     await websession.close()
 
 
-uvloop.run(main())
+asyncio.run(main())
