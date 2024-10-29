@@ -64,7 +64,15 @@ class Container(DataClassDictMixin):
 class DockerSnapshotRaw(DataClassDictMixin):
     """Dataclass for raw Docker snapshot data."""
 
-    containers: list[Container] = field(metadata=field_options(alias="Containers"))
+    containers: dict[str, Container] = field(
+        metadata=field_options(
+            alias="Containers",
+            deserialize=lambda containers_list: {
+                container_data["Id"]: Container.from_dict(container_data)
+                for container_data in containers_list
+            },
+        )
+    )
 
 
 @dataclass

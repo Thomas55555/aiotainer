@@ -45,15 +45,16 @@ async def main() -> None:
     aiotainer_api = PortainerClient(AsyncTokenAuth(websession), poll=True)
     await aiotainer_api.connect()
     settings = await aiotainer_api.get_settings()
-    print("SETTINGS")
-    print("::::::::")
     pprint.pprint(settings)
-    for test in aiotainer_api.data.values():
-        for snapshot in test.snapshots:
-            for container in snapshot.docker_snapshot_raw.containers:
-                print(container.names[0].strip("/"), container.state, container.id)
-    a = await aiotainer_api.get_status_specific(2)
-    pprint.pprint(a)
+    for node in aiotainer_api.data:
+        for container_id in (
+            aiotainer_api.data[node].snapshots[-1].docker_snapshot_raw.containers
+        ):
+            pprint.pprint(
+                aiotainer_api.data[node]
+                .snapshots[-1]
+                .docker_snapshot_raw.containers[container_id]
+            )
     await asyncio.sleep(2000)
     await aiotainer_api.close()
     await websession.close()
