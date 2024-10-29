@@ -51,7 +51,7 @@ class Container(DataClassDictMixin):
     """Dataclass for container information."""
 
     id: str = field(metadata=field_options(alias="Id"))
-    names: list[str] = field(
+    name: str = field(
         metadata=field_options(
             alias="Names", deserialize=lambda x: x[0].strip("/").capitalize()
         )
