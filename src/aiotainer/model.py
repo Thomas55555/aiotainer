@@ -46,15 +46,18 @@ class State(Enum):
     PAUSED = "paused"
 
 
+def deserialize_container_name(names: list[str]) -> str:
+    """Extract and format the container name."""
+    return names[0].strip("/").capitalize()
+
+
 @dataclass
 class Container(DataClassDictMixin):
     """Dataclass for container information."""
 
     id: str = field(metadata=field_options(alias="Id"))
     name: str = field(
-        metadata=field_options(
-            alias="Names", deserialize=lambda x: x[0].strip("/").capitalize()
-        )
+        metadata=field_options(alias="Names", deserialize=deserialize_container_name)
     )
     image: str = field(metadata=field_options(alias="Image"))
     state: State = field(metadata=field_options(alias="State"))
@@ -68,7 +71,9 @@ class DockerSnapshotRaw(DataClassDictMixin):
         metadata=field_options(
             alias="Containers",
             deserialize=lambda containers_list: {
-                container_data["Id"]: Container.from_dict(container_data)
+                deserialize_container_name(
+                    container_data["Names"]
+                ).capitalize(): Container.from_dict(container_data)
                 for container_data in containers_list
             },
         )

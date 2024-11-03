@@ -47,13 +47,13 @@ async def main() -> None:
     settings = await aiotainer_api.get_settings()
     pprint.pprint(settings)
     for node in aiotainer_api.data:
-        for container_id in (
+        for container_name in (
             aiotainer_api.data[node].snapshots[-1].docker_snapshot_raw.containers
         ):
             pprint.pprint(
                 aiotainer_api.data[node]
                 .snapshots[-1]
-                .docker_snapshot_raw.containers[container_id]
+                .docker_snapshot_raw.containers[container_name]
             )
     await asyncio.sleep(2000)
     await aiotainer_api.close()
