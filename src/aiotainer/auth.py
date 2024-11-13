@@ -1,6 +1,5 @@
 """Module for AbstractAuth for aiotainer."""
 
-import asyncio
 import logging
 from abc import ABC, abstractmethod
 from collections.abc import Mapping
@@ -12,7 +11,6 @@ from aiohttp import (
     ClientResponse,
     ClientResponseError,
     ClientSession,
-    ClientWebSocketResponse,
 )
 
 from .exceptions import (
@@ -36,11 +34,8 @@ class AbstractAuth(ABC):
     def __init__(self, websession: ClientSession, host: str, port: int) -> None:
         """Initialize the auth."""
         self._websession = websession
-        self.__host = host
-        self.loop = asyncio.get_event_loop()
-        self.ws_status: bool = True
-        self.ws: ClientWebSocketResponse
-        self._host = f"{self.__host}:{port}"
+        self.host = host
+        self.port = port
 
     @abstractmethod
     async def async_get_access_token(self) -> str:
@@ -53,7 +48,12 @@ class AbstractAuth(ABC):
             "X-Api-Key": access_token,
         }
         if not url.startswith(("http://", "https://")):
-            url = f"{self._host}/{url}"
+            if self.port == 9000:
+                url = f"http://{self.host}:{self.port}/{url}"
+            elif self.port == 9443:
+                url = f"https://{self.host}:{self.port}/{url}"
+            else:
+                raise AuthException("Host needs http or https prefix.")
         _LOGGER.debug("request[%s]=%s %s", method, url, kwargs.get("params"))
         if method != "get" and "json" in kwargs:
             _LOGGER.debug("request[post json]=%s", kwargs["json"])
