@@ -31,11 +31,10 @@ _LOGGER = logging.getLogger(__name__)
 class AbstractAuth(ABC):
     """Abstract class to make authenticated requests."""
 
-    def __init__(self, websession: ClientSession, host: str, port: int) -> None:
+    def __init__(self, websession: ClientSession, host_url: str) -> None:
         """Initialize the auth."""
         self._websession = websession
-        self.host = host
-        self.port = port
+        self.host_url = host_url
 
     @abstractmethod
     async def async_get_access_token(self) -> str:
@@ -48,12 +47,10 @@ class AbstractAuth(ABC):
             "X-Api-Key": access_token,
         }
         if not url.startswith(("http://", "https://")):
-            if self.port == 9000:
-                url = f"http://{self.host}:{self.port}/{url}"
-            elif self.port == 9443:
-                url = f"https://{self.host}:{self.port}/{url}"
-            else:
-                raise AuthException("Host needs http or https prefix.")
+            host_url = self.host_url
+            if not host_url.startswith(("http://", "https://")):
+                host_url = f"https://{self.host_url}"
+            url = f"{host_url}/{url}"
         _LOGGER.debug("request[%s]=%s %s", method, url, kwargs.get("params"))
         if method != "get" and "json" in kwargs:
             _LOGGER.debug("request[post json]=%s", kwargs["json"])

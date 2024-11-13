@@ -20,8 +20,7 @@ with open("./secrets.yaml", encoding="UTF-8") as file:
     secrets = yaml.safe_load(file)
 
 ACCESS_TOKEN = secrets["ACCESS_TOKEN"]
-API_BASE_URL = secrets["API_BASE_URL"]
-PORT = secrets["PORT"]
+HOST_URL = secrets["HOST_URL"]
 
 
 class AsyncTokenAuth(AbstractAuth):
@@ -32,7 +31,7 @@ class AsyncTokenAuth(AbstractAuth):
         websession: ClientSession,
     ) -> None:
         """Initialize aiotainer auth."""
-        super().__init__(websession, API_BASE_URL, PORT)
+        super().__init__(websession, HOST_URL)
 
     async def async_get_access_token(self) -> str:
         """Return a valid access token."""
