@@ -130,13 +130,13 @@ class NodeData(DataClassDictMixin):
     tls_config: TLSConfig = field(metadata=field_options(alias="TLSConfig"))
     status: int = field(metadata=field_options(alias="Status"))
     snapshots: list[Snapshot] = field(metadata=field_options(alias="Snapshots"))
-    enable_gpu_management: bool = field(
-        metadata=field_options(alias="EnableGPUManagement")
-    )
     authorized_users: str = field(metadata=field_options(alias="AuthorizedUsers"))
     authorized_teams: str = field(metadata=field_options(alias="AuthorizedTeams"))
     tags: str = field(metadata=field_options(alias="Tags"))
     is_edge_device: bool = field(metadata=field_options(alias="IsEdgeDevice"))
+    enable_gpu_management: bool = field(
+        metadata=field_options(alias="EnableGPUManagement"), default=False
+    )
 
 
 @dataclass
