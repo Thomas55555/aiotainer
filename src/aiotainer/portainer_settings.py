@@ -1,7 +1,7 @@
 """Models for Portainer API settings."""
 
 from dataclasses import dataclass, field
-from typing import List, Optional
+from typing import Optional
 
 from mashumaro import DataClassDictMixin, field_options
 
@@ -60,10 +60,10 @@ class LDAPSettings(DataClassDictMixin):
         default_factory=TLSConfig, metadata=field_options(alias="TLSConfig")
     )
     start_tls: bool = field(default=False, metadata=field_options(alias="StartTLS"))
-    search_settings: List[SearchSetting] = field(
+    search_settings: list[SearchSetting] = field(
         default_factory=list, metadata=field_options(alias="SearchSettings")
     )
-    group_search_settings: List[GroupSearchSetting] = field(
+    group_search_settings: list[GroupSearchSetting] = field(
         default_factory=list, metadata=field_options(alias="GroupSearchSettings")
     )
     auto_create_users: bool = field(
@@ -164,7 +164,7 @@ class PortainerSettings(DataClassDictMixin):
     """Main settings configuration for Portainer."""
 
     logo_url: str = field(default="", metadata=field_options(alias="LogoURL"))
-    blacklisted_labels: List[str] = field(
+    blacklisted_labels: list[str] = field(
         default_factory=list, metadata=field_options(alias="BlackListedLabels")
     )
     authentication_method: int = field(
