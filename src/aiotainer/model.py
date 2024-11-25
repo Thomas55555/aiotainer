@@ -104,16 +104,6 @@ class Snapshot(DataClassDictMixin):
         metadata=field_options(alias="DockerSnapshotRaw")
     )
     node_count: int = field(metadata=field_options(alias="NodeCount"))
-    gpu_use_all: bool = field(metadata=field_options(alias="GpuUseAll"))
-    gpu_use_list: list[Any] = field(metadata=field_options(alias="GpuUseList"))
-
-
-@dataclass
-class TLSConfig(DataClassDictMixin):
-    """Dataclass for TLS configuration."""
-
-    tls: bool = field(metadata=field_options(alias="TLS"))
-    tls_skip_verify: bool = field(metadata=field_options(alias="TLSSkipVerify"))
 
 
 @dataclass
@@ -122,18 +112,25 @@ class NodeData(DataClassDictMixin):
 
     id: int = field(metadata=field_options(alias="Id"))
     name: str = field(metadata=field_options(alias="Name"))
-    type: int = field(metadata=field_options(alias="Type"))
-    url: str = field(metadata=field_options(alias="URL"))
-    group_id: int = field(metadata=field_options(alias="GroupId"))
-    public_url: str = field(metadata=field_options(alias="PublicURL"))
-    gpus: list[Any] = field(metadata=field_options(alias="Gpus"))
-    tls_config: TLSConfig = field(metadata=field_options(alias="TLSConfig"))
-    status: int = field(metadata=field_options(alias="Status"))
     snapshots: list[Snapshot] = field(metadata=field_options(alias="Snapshots"))
-    authorized_users: str = field(metadata=field_options(alias="AuthorizedUsers"))
-    authorized_teams: str = field(metadata=field_options(alias="AuthorizedTeams"))
-    tags: str = field(metadata=field_options(alias="Tags"))
-    is_edge_device: bool = field(metadata=field_options(alias="IsEdgeDevice"))
+    type: int = field(metadata=field_options(alias="Type"), default=0)
+    url: str | None = field(metadata=field_options(alias="URL"), default=None)
+    group_id: int = field(metadata=field_options(alias="GroupId"), default=0)
+    public_url: str | None = field(
+        metadata=field_options(alias="PublicURL"), default=None
+    )
+    gpus: list[Any] | None = field(metadata=field_options(alias="Gpus"), default=None)
+    status: int = field(metadata=field_options(alias="Status"), default=0)
+    authorized_users: str | None = field(
+        metadata=field_options(alias="AuthorizedUsers"), default=None
+    )
+    authorized_teams: str | None = field(
+        metadata=field_options(alias="AuthorizedTeams"), default=None
+    )
+    tags: str | None = field(metadata=field_options(alias="Tags"), default=None)
+    is_edge_device: bool = field(
+        metadata=field_options(alias="IsEdgeDevice"), default=False
+    )
     enable_gpu_management: bool = field(
         metadata=field_options(alias="EnableGPUManagement"), default=False
     )
