@@ -127,7 +127,7 @@ class NodeData(DataClassDictMixin):
     authorized_teams: str | None = field(
         metadata=field_options(alias="AuthorizedTeams"), default=None
     )
-    tags: str = field(metadata=field_options(alias="Tags"), default=None)
+    tags: str|None = field(metadata=field_options(alias="Tags"), default=None)
     is_edge_device: bool = field(
         metadata=field_options(alias="IsEdgeDevice"), default=False
     )
