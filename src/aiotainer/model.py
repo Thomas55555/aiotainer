@@ -106,13 +106,13 @@ class Snapshot(DataClassDictMixin):
     node_count: int = field(metadata=field_options(alias="NodeCount"))
 
 
-
 @dataclass
 class NodeData(DataClassDictMixin):
     """Dataclass for node data."""
 
     id: int = field(metadata=field_options(alias="Id"))
     name: str = field(metadata=field_options(alias="Name"))
+    snapshots: list[Snapshot] = field(metadata=field_options(alias="Snapshots"))
     type: int = field(metadata=field_options(alias="Type"), default=0)
     url: str | None = field(metadata=field_options(alias="URL"), default=None)
     group_id: int = field(metadata=field_options(alias="GroupId"), default=0)
@@ -121,7 +121,6 @@ class NodeData(DataClassDictMixin):
     )
     gpus: list[Any] | None = field(metadata=field_options(alias="Gpus"), default=None)
     status: int = field(metadata=field_options(alias="Status"), default=0)
-    snapshots: list[Snapshot] = field(metadata=field_options(alias="Snapshots"))
     authorized_users: str | None = field(
         metadata=field_options(alias="AuthorizedUsers"), default=None
     )
