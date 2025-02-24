@@ -7,7 +7,7 @@ from collections.abc import Iterable
 from dataclasses import dataclass
 from typing import Any
 
-from .auth import AbstractAuth
+from .auth import Auth
 from .const import REST_POLL_CYCLE
 from .model import NodeData
 from .portainer_settings import PortainerSettings
@@ -50,7 +50,7 @@ class PortainerClient:
 
     def __init__(
         self,
-        auth: AbstractAuth,
+        auth: Auth,
         poll: bool = False,
     ) -> None:
         """Create a client.

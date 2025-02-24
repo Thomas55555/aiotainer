@@ -22,7 +22,7 @@ def snapshot_assertion(snapshot: SnapshotAssertion) -> SnapshotAssertion:
 def mock_aiotainer_client() -> Generator[AsyncMock, None, None]:
     """Mock a Auth aiotainer client."""
     with patch(
-        "aiotainer.auth.AbstractAuth",
+        "aiotainer.auth.Auth",
         autospec=True,
     ) as mock_client:
         client = mock_client.return_value
