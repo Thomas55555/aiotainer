@@ -28,21 +28,20 @@ MESSAGE = "message"
 _LOGGER = logging.getLogger(__name__)
 
 
-class AbstractAuth(ABC):
-    """Abstract class to make authenticated requests."""
+class Auth:
+    """Class to make authenticated requests."""
 
-    def __init__(self, websession: ClientSession, host_url: str) -> None:
+    def __init__(
+        self, websession: ClientSession, host_url: str, access_token: str
+    ) -> None:
         """Initialize the auth."""
         self._websession = websession
         self.host_url = host_url
-
-    @abstractmethod
-    async def async_get_access_token(self) -> str:
-        """Return a valid access token."""
+        self.access_token = access_token
 
     async def request(self, method: str, url: str, **kwargs: Any) -> ClientResponse:
         """Make a request."""
-        access_token = await self._async_get_access_token()
+        access_token = self.access_token
         headers = {
             "X-Api-Key": access_token,
         }
@@ -65,7 +64,7 @@ class AbstractAuth(ABC):
             resp = await self.request("get", url, **kwargs)
         except ClientError as err:
             raise ApiException(f"Error connecting to API: {err}") from err
-        return await AbstractAuth._raise_for_status(resp)
+        return await Auth._raise_for_status(resp)
 
     async def get_json(self, url: str, **kwargs: Any) -> Any:
         """Make a get request and return json response."""
@@ -97,7 +96,7 @@ class AbstractAuth(ABC):
             resp = await self.request("post", url, **kwargs)
         except ClientError as err:
             raise ApiException(f"Error connecting to API: {err}") from err
-        return await AbstractAuth._raise_for_status(resp)
+        return await Auth._raise_for_status(resp)
 
     async def post_json(self, url: str, **kwargs: Any) -> dict[str, Any]:
         """Make a post request and return a json response."""
@@ -111,17 +110,10 @@ class AbstractAuth(ABC):
         _LOGGER.debug("response=%s", result)
         return result
 
-    async def _async_get_access_token(self) -> str:
-        """Request a new access token."""
-        try:
-            return await self.async_get_access_token()
-        except ClientError as err:
-            raise AuthException(f"Access token failure: {err}") from err
-
     @staticmethod
     async def _raise_for_status(resp: ClientResponse) -> ClientResponse:
         """Raise exceptions on failure methods."""
-        detail = await AbstractAuth._error_detail(resp)
+        detail = await Auth._error_detail(resp)
         try:
             resp.raise_for_status()
         except ClientResponseError as err:
