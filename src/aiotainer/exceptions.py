@@ -9,10 +9,6 @@ class ApiException(PortainerException):
     """Raised during problems talking to the API."""
 
 
-class AuthException(PortainerException):
-    """Raised due to auth problems talking to API."""
-
-
 class ApiBadRequestException(PortainerException):
     """Raised due sending a Rest command resulting in a bad request."""
 

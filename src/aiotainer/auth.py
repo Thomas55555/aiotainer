@@ -1,7 +1,6 @@
 """Module for AbstractAuth for aiotainer."""
 
 import logging
-from abc import ABC, abstractmethod
 from collections.abc import Mapping
 from http import HTTPStatus
 from typing import Any
@@ -18,7 +17,6 @@ from .exceptions import (
     ApiException,
     ApiForbiddenException,
     ApiUnauthorizedException,
-    AuthException,
 )
 
 ERROR = "error"
